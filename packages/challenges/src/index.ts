@@ -271,12 +271,12 @@ const challenges: Record<ChallengeName, Omit<Challenge, "name">> = {
     display: "What's this website called again?",
     discordRoleId: "739276161603076116",
     category: "script",
-    description: "Type monkeytype one thousand times.",
+    description: "Type examtype one thousand times.",
     settings: {
       autoRole: true,
       type: "customText",
       parameters: {
-        text: "monkeytype",
+        text: "examtype",
         mode: "repeat",
         limit: 1000,
         limitMode: "word",
@@ -541,18 +541,6 @@ const challenges: Record<ChallengeName, Omit<Challenge, "name">> = {
     description:
       "Type out the entire Shrek script with punctuation while watching the movie simultaneously.",
     settings: { type: "script", parameters: { script: "shrek.txt" } },
-  },
-  lookAtMeIAmTheDeveloperNow: {
-    display: "Look at me. I am the developer now.",
-    discordRoleId: "937358772635074600",
-    category: "script",
-    description:
-      "Type out the entire source code of Monkeytype, as it was in February 2022.",
-    settings: {
-      autoRole: true,
-      type: "script",
-      parameters: { script: "sourcecode.txt" },
-    },
   },
   beLikeWater: {
     display: "Be like water",
