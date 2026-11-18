@@ -1,7 +1,8 @@
 /**
- * SSC-style word-level diff for the government exam typing simulator.
+ * SSC-style word-level diff for government exam typing.
  *
- * Scoring rules (official SSC CGL/CHSL evaluation style):
+ * Scoring rules (conventional SSC-style evaluation; SSC does not publish a
+ * public formula — these weights follow the widely used convention):
  *  - Full mistakes (1.0): omitted word, added word, substituted/misspelled word
  *  - Half mistakes (0.5): wrong capitalization, punctuation-only differences,
  *    extra/missing spaces (incl. leading/trailing spaces and newlines)

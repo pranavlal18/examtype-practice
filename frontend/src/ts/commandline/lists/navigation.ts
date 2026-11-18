@@ -14,7 +14,7 @@ const commands: Command[] = [
   },
   {
     id: "viewExam",
-    display: "View Government Exam Simulator",
+    display: "Open Government Exam Typing",
     alias: "navigate exam dest ssc government test",
     fa: { icon: "fa-graduation-cap" },
     exec: (): void => {

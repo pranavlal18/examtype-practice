@@ -1,4 +1,4 @@
-/** Shared shapes for the government exam typing simulator. */
+/** Shared shapes for government exam typing. */
 
 /** a scheduled key event captured during a test (for weak-key analytics) */
 export type KeystrokeLogEntry = {

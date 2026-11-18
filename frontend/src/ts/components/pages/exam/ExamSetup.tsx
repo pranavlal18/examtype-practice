@@ -347,7 +347,8 @@ export function ExamSetup(props: {
       <p class="text-center text-xs text-sub">
         <Fa icon="fa-shield-alt" class="mr-1" /> Results are computed locally
         and never leave your browser. Scoring: full mistakes 1.0 · half mistakes
-        0.5 · error % vs official SSC post-tier cutoffs.
+        0.5 · error % vs SSC category cutoffs (reference figures — check the
+        current notification for your post).
       </p>
     </div>
   );

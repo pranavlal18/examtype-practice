@@ -1,4 +1,4 @@
-# ExamType — Government Exam Simulator
+# ExamType — Government Exam Typing
 
 This document covers the exam modules this fork adds. Everything else is upstream Monkeytype (see `../README.md`).
 
@@ -19,8 +19,9 @@ src/ts/exam/
   types.ts          ExamSession / ExamOutcome
   ssc-diff.ts       word-level LCS diff; Full (1.0) vs Half (0.5) mistakes;
                     Error % = (full + half/2) / passageWords * 100. Pure, unit-tested.
-  ssc-scoring.ts    KDPH, Net WPM, Error % orchestration, official cutoff tables
-                    (Strict / General / CHSL × UR / OBC-EWS / SC-ST-PwBD). Pure, unit-tested.
+  ssc-scoring.ts    KDPH, Net WPM, Error % orchestration, reference cutoff tables
+                    (Strict / General / CHSL × UR / OBC-EWS / SC-ST-PwBD) —
+                    not a universal official table; vary by post and year.
   exam-passages.ts  static-JSON loader (zod-validated)
 src/ts/components/pages/exam/
   ExamPage.tsx      state machine: setup → running → result
@@ -29,7 +30,7 @@ src/ts/components/pages/exam/
   ExamResult.tsx    verdict + word-level diff + mistake table
 ```
 
-## Phase 2 — Trainer & retention (added alongside the simulator)
+## Phase 2 — Trainer & retention (added alongside the exam mode)
 
 - **History tab** (`/exam` → History): last 50 attempts from localStorage (`examAttempts`), zod-validated via `LocalStorageWithSchema`, capped, with JSON **Export / Import** (merges, de-duped by id, validated on import) and clear-all.
 - **Weak-Key Tracker**: every finished exam test and drill logs a keystroke stream; `src/ts/exam/key-stats.ts` folds it into a per-key aggregate (attempts, error rate, latency EMA) in `examKeyStats`.

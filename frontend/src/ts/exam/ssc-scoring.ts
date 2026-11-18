@@ -1,8 +1,10 @@
 /**
- * SSC-style scoring for the government exam typing simulator.
+ * SSC-style scoring for government exam typing.
  *
- * Cutoffs are the official SSC CGL error-percentage limits, which differ only
- * by post tier; the counting rules are identical. CHSL gets its own preset.
+ * Cutoffs are reference figures based on commonly cited SSC category norms.
+ * They differ only by post tier; the counting rules are identical. CHSL gets
+ * its own preset. They are NOT a single universal official table — permissible
+ * error % varies by post and exam year, so check the current notification.
  * PASS/FAIL is decided purely from the candidate's error %.
  */
 

@@ -8,7 +8,7 @@ import { Button } from "../../common/Button";
 
 /**
  * ExamType fork: no accounts, no leaderboards, no news — just the test,
- * the exam simulator, the trainer, and settings.
+ * the government exam page, the trainer, and settings.
  */
 export function Nav(): JSXElement {
   const buttonClass = () =>
@@ -44,7 +44,7 @@ export function Nav(): JSXElement {
         }}
         class={buttonClass()}
         to="/exam"
-        balloon={{ text: "government exam simulator", position: "down" }}
+        balloon={{ text: "government exam typing", position: "down" }}
       />
       <Button
         variant="text"

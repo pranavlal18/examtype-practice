@@ -10,7 +10,7 @@ import { ExamTest } from "./ExamTest";
 type Phase = "setup" | "running" | "result";
 
 /**
- * Government exam typing simulator (SSC CGL DEST / CHSL / RRB NTPC pattern).
+ * Government exam typing (SSC CGL DEST / CHSL / RRB NTPC pattern).
  * State machine: setup -> running -> result. Everything happens client-side;
  * nothing is persisted — like the real exam hall.
  */
