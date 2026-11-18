@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/solid-router";
 import { format } from "date-fns/format";
 import {
   createMemo,
@@ -14,7 +13,7 @@ import { getConfig } from "../../../../config/store";
 import { useRefWithUtils } from "../../../../hooks/useRefWithUtils";
 import { getUserData } from "../../../../queries/user";
 import { getAdBlock, getCookieBlocker } from "../../../../states/ads";
-import { getIsScreenshotting, isAuthenticated } from "../../../../states/core";
+import { getIsScreenshotting } from "../../../../states/core";
 import { getGlarsesMode } from "../../../../states/glarses-mode";
 import { resultState } from "../../../../states/result";
 import { getLastEventLog, getLastResult } from "../../../../states/test";
@@ -97,7 +96,6 @@ export function TestResult(): JSXElement {
               <ResultWordsHistory eventLog={test().eventLog} />
               <ResultReplay />
               <RetrySavingButton />
-              <LoginPrompt />
             </Show>
             <ResultButtons glarses={getGlarsesMode()} />
 
@@ -107,16 +105,6 @@ export function TestResult(): JSXElement {
       </Show>
       <ResultAds />
     </div>
-  );
-}
-
-function LoginPrompt(): JSXElement {
-  return (
-    <Show when={!isAuthenticated() && !getIsScreenshotting()}>
-      <div class="mb-4 text-center text-sub">
-        <Link to="/login">Sign in</Link> to save your result
-      </div>
-    </Show>
   );
 }
 
@@ -158,7 +146,7 @@ function Watermark(): JSXElement {
             </Show>
             <span>{date}</span>
             <span>|</span>
-            <span>monkeytype.com</span>
+            <span>examtype-practice</span>
           </div>
         );
       }}

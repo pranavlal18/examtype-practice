@@ -54,15 +54,6 @@
     width: 1em;
   }
 
-  &[data-ui-variant="monkey"] {
-    background-color: transparent;
-    background-image: url("/images/caret/monkey.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 1em;
-  }
-
   &[data-ui-variant="block"] {
     width: 0.5em;
     z-index: -1;

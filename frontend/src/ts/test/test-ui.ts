@@ -10,7 +10,6 @@ import { isDevEnvironment } from "../utils/env";
 import * as SoundController from "../controllers/sound-controller";
 import * as Numbers from "@monkeytype/util/numbers";
 import { blurInputElement, focusInputElement } from "../input/input-element";
-import * as MonkeyPower from "../elements/monkey-power";
 import * as AdController from "../controllers/ad-controller";
 import * as ThemeController from "../controllers/theme-controller";
 import { ElementWithUtils } from "../utils/dom";
@@ -127,8 +126,6 @@ export function afterTestTextInput(
   inputOverride?: string,
   goingToNextWord = false,
 ): void {
-  void MonkeyPower.addPower(correct);
-
   let input = inputOverride ?? getCurrentInput();
   if (goingToNextWord) {
     input = input.replace(/ $/, "");
@@ -246,7 +243,6 @@ export function onTestRestart(source: "testPage" | "resultPage"): void {
   });
   setLayoutfluidTimerVisible(false);
   ResultWordHighlight.destroy();
-  MonkeyPower.reset();
   setTestInitFailed(false);
   setTestInitError(null);
   focusWords(true);

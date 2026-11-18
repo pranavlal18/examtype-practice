@@ -163,15 +163,8 @@ describe("ConfigMeta", () => {
         { value: false, given: { tapeMode: "word" } },
         { value: true, given: { tapeMode: "word" }, fail: true },
       ],
-      monkey: [{ value: false, given: { liveSpeedStyle: "text" } }],
-      liveSpeedStyle: [
-        { value: "mini", given: { monkey: true } },
-        { value: "text", given: { monkey: true } },
-      ],
-      liveAccStyle: [
-        { value: "mini", given: { monkey: true } },
-        { value: "text", given: { monkey: true } },
-      ],
+      liveSpeedStyle: [{ value: "mini" }, { value: "text" }],
+      liveAccStyle: [{ value: "mini" }, { value: "text" }],
     };
 
     it.for(
@@ -251,45 +244,6 @@ describe("ConfigMeta", () => {
           value: "on",
           given: { freedomMode: true, stopOnError: "word" },
           expected: { freedomMode: false, stopOnError: "off" },
-        },
-      ],
-      monkey: [
-        {
-          value: false,
-          given: { liveSpeedStyle: "text", liveAccStyle: "text" },
-          expected: {
-            liveSpeedStyle: "text",
-            liveAccStyle: "text",
-          },
-        },
-        {
-          value: true,
-          given: { liveSpeedStyle: "text", liveAccStyle: "text" },
-          expected: { liveSpeedStyle: "mini", liveAccStyle: "mini" },
-        },
-      ],
-      liveSpeedStyle: [
-        {
-          value: "mini",
-          given: { monkey: true },
-          expected: { monkey: true },
-        },
-        {
-          value: "text",
-          given: { monkey: true },
-          expected: { monkey: false },
-        },
-      ],
-      liveAccStyle: [
-        {
-          value: "mini",
-          given: { monkey: true },
-          expected: { monkey: true },
-        },
-        {
-          value: "text",
-          given: { monkey: true },
-          expected: { monkey: false },
         },
       ],
       tapeMode: [

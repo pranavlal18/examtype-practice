@@ -196,9 +196,6 @@ const caretOptionsMetadata = {
   carrot: {
     visible: false,
   },
-  monkey: {
-    visible: false,
-  },
   block: {},
   off: {},
   default: {},
@@ -1071,7 +1068,7 @@ const configMetadataEntries = {
     commandline: {
       subgroup: {
         options: "fromSchema",
-        isVisible: (value) => !["banana", "carrot", "monkey"].includes(value),
+        isVisible: (value) => !["banana", "carrot"].includes(value),
       },
     },
   },
@@ -1148,7 +1145,7 @@ const configMetadataEntries = {
     commandline: {
       subgroup: {
         options: "fromSchema",
-        isVisible: (value) => !["banana", "carrot", "monkey"].includes(value),
+        isVisible: (value) => !["banana", "carrot"].includes(value),
       },
     },
   },
@@ -1191,14 +1188,6 @@ const configMetadataEntries = {
     group: "appearance",
     description:
       "Change the style of the live speed displayed during the test.",
-    overrideConfig: ({ value }) => {
-      if (value === "text") {
-        return {
-          monkey: false,
-        };
-      }
-      return {};
-    },
     commandline: {
       subgroup: {
         options: "fromSchema",
@@ -1214,14 +1203,6 @@ const configMetadataEntries = {
     group: "appearance",
     description:
       "Change the style of the live accuracy displayed during the test.",
-    overrideConfig: ({ value }) => {
-      if (value === "text") {
-        return {
-          monkey: false,
-        };
-      }
-      return {};
-    },
     commandline: {
       subgroup: {
         options: "fromSchema",
@@ -1894,54 +1875,6 @@ const configMetadataEntries = {
     },
     // set on the account page
     commandline: null,
-  },
-  monkey: {
-    key: "monkey",
-    fa: { icon: "fa-egg" },
-    displayString: "monkey",
-    changeRequiresRestart: false,
-    group: "hidden",
-    overrideConfig: ({ value, currentConfig }) => {
-      if (value) {
-        return {
-          liveSpeedStyle:
-            currentConfig.liveSpeedStyle === "text"
-              ? "mini"
-              : currentConfig.liveSpeedStyle,
-          liveAccStyle:
-            currentConfig.liveAccStyle === "text"
-              ? "mini"
-              : currentConfig.liveAccStyle,
-        };
-      }
-      return {};
-    },
-    commandline: {
-      subgroup: {
-        options: "fromSchema",
-      },
-    },
-  },
-  monkeyPowerLevel: {
-    key: "monkeyPowerLevel",
-    fa: { icon: "fa-egg" },
-    displayString: "monkey power level",
-    optionsMetadata: {
-      off: {},
-      "1": { displayString: "mellow" },
-      "2": { displayString: "high" },
-      "3": { displayString: "ultra" },
-      "4": { displayString: "over 9000" },
-    },
-    changeRequiresRestart: false,
-    group: "hidden",
-    commandline: {
-      alias: "powermode",
-      isVisible: false,
-      subgroup: {
-        options: "fromSchema",
-      },
-    },
   },
 
   // ads

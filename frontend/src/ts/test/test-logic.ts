@@ -1144,7 +1144,7 @@ async function showResult(
   setResultLoading(false);
   setResultShown(true);
 
-  void AdController.renderResult();
+  AdController.renderResult();
   setResultCalculating(false);
   // the result is shown: free the test words DOM
   resetWordsRender();

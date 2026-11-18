@@ -26,18 +26,26 @@ export function Footer(): JSXElement {
         <ThemeIndicator />
       </div>
       <p class="mt-2 border-t border-sub-alt pt-2 text-[10px] leading-4 text-sub opacity-80">
-        ExamType — free, open-source practice tool for SSC CGL / CHSL and RRB
-        NTPC typing tests.{" "}
+        ExamType Practice — free, open-source (GPL-3.0){" "}
         <a
           href="https://github.com/monkeytypegame/monkeytype"
           class="underline hover:text-text"
           target="_blank"
           rel="noreferrer noopener"
         >
-          Fork of Monkeytype
-        </a>{" "}
-        (GPL-3.0), reworked and independently maintained. Not affiliated with
-        the Staff Selection Commission or Indian Railways.
+          fork of Monkeytype
+        </a>
+        , modified and independently maintained. Not affiliated with SSC, RRB,
+        Indian Railways, Government of India or Monkeytype. Source code:{" "}
+        <a
+          href="https://github.com/pranavlal18/examtype-practice"
+          class="underline hover:text-text"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          github.com/pranavlal18/examtype-practice
+        </a>
+        .
       </p>
     </footer>
   );

@@ -44,7 +44,6 @@ export const CaretStyleSchema = z.enum([
   "underline",
   "carrot",
   "banana",
-  "monkey",
 ]);
 export type CaretStyle = z.infer<typeof CaretStyleSchema>;
 
@@ -256,9 +255,6 @@ export type CustomLayoutFluid = z.infer<typeof CustomLayoutFluidSchema>;
 
 export const CustomPolyglotSchema = z.array(LanguageSchema).min(2);
 export type CustomPolyglot = z.infer<typeof CustomPolyglotSchema>;
-
-export const MonkeyPowerLevelSchema = z.enum(["off", "1", "2", "3", "4"]);
-export type MonkeyPowerLevel = z.infer<typeof MonkeyPowerLevelSchema>;
 
 export const MinimumBurstSchema = z.enum(["off", "fixed", "flex"]);
 export type MinimumBurst = z.infer<typeof MinimumBurstSchema>;
@@ -509,10 +505,8 @@ export const ConfigSchema = z
     showAverage: ShowAverageSchema,
     showPb: ShowPbSchema,
 
-    // other (hidden)
+    // hidden
     accountChart: AccountChartSchema,
-    monkey: z.boolean(),
-    monkeyPowerLevel: MonkeyPowerLevelSchema,
 
     // ads
     ads: AdsSchema,

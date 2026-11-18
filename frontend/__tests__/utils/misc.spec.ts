@@ -3,6 +3,7 @@ import {
   isObject,
   escapeHTML,
   promiseWithResolvers,
+  updateTitle,
 } from "../../src/ts/utils/misc";
 import {
   getLanguageDisplayString,
@@ -84,6 +85,15 @@ describe("misc.ts", () => {
       });
     });
   });
+  describe("updateTitle", () => {
+    it("uses ExamType Practice branding when no local title is passed", () => {
+      updateTitle();
+      expect(
+        document.title.endsWith("ExamType Practice | Exam typing practice"),
+      ).toBe(true);
+    });
+  });
+
   describe("isObject", () => {
     it("should correctly identify objects", () => {
       const tests = [

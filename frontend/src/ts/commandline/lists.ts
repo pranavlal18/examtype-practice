@@ -179,8 +179,6 @@ export const commands: CommandsSubgroup = {
       "capsLockWarning",
       "showAverage",
       "showPb",
-      "monkeyPowerLevel",
-      "monkey",
     ),
 
     //danger zone
@@ -295,14 +293,6 @@ export const commands: CommandsSubgroup = {
         fixSkillIssue();
       },
     },
-    {
-      id: "joinDiscord",
-      display: "Join the Discord server",
-      fa: { icon: "fa-users" },
-      exec: (): void => {
-        window.open("https://discord.gg/monkeytype");
-      },
-    },
   ],
 };
 
@@ -311,6 +301,7 @@ const lists: Record<CommandlineListKey, CommandsSubgroup | undefined> = {
   loadChallenge: LoadChallengeCommands[0]?.subgroup,
   minBurst: MinBurstCommands[0]?.subgroup,
   funbox: FunboxCommands[0]?.subgroup,
+  tags: undefined,
   ads: adsCommands[0]?.subgroup,
 };
 

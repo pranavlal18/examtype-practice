@@ -4,7 +4,6 @@ import { debounce } from "throttle-debounce";
 import { Config, getConfig } from "../../../config/store";
 import { getCustomTextIndicator } from "../../../states/core";
 import { listenForModifierKeys } from "../../../states/modifiers";
-import { listenForMonkeyKeys } from "../../../states/monkey";
 import { isResultShown } from "../../../states/result";
 import {
   isFocusMode,
@@ -42,7 +41,6 @@ import { LiveStatsTextBottom } from "./live-stats/LiveStatsTextBottom";
 import { LiveStatsTextTop } from "./live-stats/LiveStatsTextTop";
 import { MemoryFunboxTimer } from "./MemoryFunboxTimer";
 import { TestModesNotice } from "./modes-notice/TestModesNotice";
-import { Monkey } from "./Monkey";
 import { OutOfFocusWarning } from "./OutOfFocusWarning";
 import { Premid } from "./Premid";
 import { TestResult } from "./result/TestResult";
@@ -82,7 +80,6 @@ export function TestPage(): JSXElement {
       signal,
     );
     listenForModifierKeys(signal);
-    listenForMonkeyKeys(signal);
     // any previously rendered words are gone, start a fresh test
     void restartTest({ noAnim: true });
 
@@ -205,9 +202,6 @@ export function TestPage(): JSXElement {
         </div>
         <div>
           <Keymap />
-        </div>
-        <div>
-          <Monkey />
         </div>
 
         <Button

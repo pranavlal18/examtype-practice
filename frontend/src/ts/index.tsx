@@ -4,7 +4,6 @@
 import "./event-handlers/global";
 
 import "./console-globals";
-import "./controllers/ad-controller";
 import "./test/tts";
 import { render } from "solid-js/web";
 import { App } from "./components/core/App";
