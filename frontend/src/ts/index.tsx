@@ -1,12 +1,6 @@
 // Import sorting is disabled for this file (.oxfmtrc.json): many imports run
 // side effects on load, so their order matters.
 
-// register signal tracking hook before any signals are created
-import "./dev/signal-tracker";
-
-//enable solidjs-devtools
-import "solid-devtools";
-
 import "./event-handlers/global";
 
 import "./console-globals";
@@ -36,10 +30,6 @@ Object.defineProperty(window, "Math", {
   configurable: false,
   enumerable: true,
 });
-
-if (import.meta.env.DEV) {
-  void import("./dev/expose");
-}
 
 // render before anything that might touch component-rendered DOM (eg. test page).
 // Renders after the static markup in <body> (index.html)

@@ -2,15 +2,13 @@ import { JSXElement } from "solid-js";
 
 import { CommandlineModal } from "./CommandlineModal";
 import { ContactModal } from "./ContactModal";
+import { CustomGeneratorModal } from "./CustomGeneratorModal";
 import { CustomTestDurationModal } from "./CustomTestDurationModal";
 import { CustomTextModal } from "./CustomTextModal";
 import { CustomWordAmountModal } from "./CustomWordAmountModal";
-import { CustomGeneratorModal } from "./CustomGeneratorModal";
 import { EventLogViewerModal } from "./EventLogViewerModal";
 import { MobileTestConfigModal } from "./MobileTestConfigModal";
 import { PractiseWordsModal } from "./PractiseWordsModal";
-import { SavedTextsModal } from "./SavedTextsModal";
-import { SaveCustomTextModal } from "./SaveCustomTextModal";
 import { ShareTestSettings } from "./ShareTestSettings";
 import { SimpleModal } from "./SimpleModal";
 import { SupportModal } from "./SupportModal";
@@ -31,8 +29,6 @@ export function Modals(): JSXElement {
       <CustomTestDurationModal />
       <PractiseWordsModal />
       <MobileTestConfigModal />
-      <SavedTextsModal />
-      <SaveCustomTextModal />
       <ShareTestSettings />
       <TheRestModal />
       <WordFilterModal />

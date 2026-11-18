@@ -1,5 +1,4 @@
 // Globals for debugging from the browser console, in every environment.
-// Dev-only helpers live on `window.__mt` (dev/expose.ts).
 import { Config } from "./config/store";
 import { toggleSmoothedBurst } from "./states/result";
 import { getLastEventLog } from "./states/test";
@@ -9,7 +8,6 @@ import { qs, qsa, qsr } from "./utils/dom";
 import * as Logger from "./utils/logger";
 
 Object.assign(window, {
-
   config: Config,
   glarsesMode: () => {
     console.log("Moved to settings > danger zone > the rest");
@@ -24,4 +22,3 @@ Object.assign(window, {
   lastEventLog: () => getLastEventLog(),
   currentEventLog: buildEventLog,
 });
-

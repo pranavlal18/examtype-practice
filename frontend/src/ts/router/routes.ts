@@ -1,6 +1,9 @@
 // The route tree: every page with its guards and loaders
 
-import { createRootRouteWithContext, createRoute } from "@tanstack/solid-router";
+import {
+  createRootRouteWithContext,
+  createRoute,
+} from "@tanstack/solid-router";
 
 import { PageSwitcher } from "../components/core/PageSwitcher";
 import { createRouterPage } from "../components/core/Page";
@@ -9,18 +12,19 @@ import { TrainerPage } from "../components/pages/trainer/TrainerPage";
 import { SettingsPage } from "../components/pages/settings/SettingsPage";
 import { TestPage } from "../components/pages/test/TestPage";
 import { SettingsSearchSchema } from "../states/settings-highlight";
-import { applyUrlActions } from "../url-actions/apply";
-import {
-  type LoadingStep,
-  planLoadingBar,
-  runLoadingStep,
-} from "./loading-bar";
+import { type LoadingStep } from "./loading-bar";
 
 // NOTE: whenever adding a route add the pathname to the `firebase.json`
 // rewrite rule
 
 /** A page of the site, rendered by its route (see `staticData.page`). */
-export type PageName = "loading" | "test" | "settings" | "404" | "exam" | "trainer";
+export type PageName =
+  | "loading"
+  | "test"
+  | "settings"
+  | "404"
+  | "exam"
+  | "trainer";
 
 declare module "@tanstack/solid-router" {
   // oxlint-disable-next-line typescript/consistent-type-definitions -- module augmentation needs an interface
@@ -44,6 +48,7 @@ type RouteLoadingStep = Omit<LoadingStep, "label"> & {
 /** Router context: guards and loaders read these instead of module globals. */
 export type RouterContext = {
   queryClient: import("@tanstack/solid-query").QueryClient;
+  auth: import("./create-router-auth").RouterAuth;
 };
 
 const root = createRootRouteWithContext<RouterContext>()({

@@ -1,4 +1,3 @@
-
 import {
   getRememberLazyMode,
   setRememberLazyMode,
@@ -22,18 +21,11 @@ import * as PractiseWords from "./practise-words";
 import * as Funbox from "./funbox/funbox";
 import * as PaceCaret from "./pace-caret";
 import * as TestTimer from "./test-timer";
-import { saveLocalResult, SaveLocalResultData } from "../collections/results";
 import * as Replay from "../components/pages/test/result/replay";
 import { getActiveTags } from "../queries/tags";
 import * as TodayTracker from "./today-tracker";
-import * as ChallengeContoller from "../controllers/challenge-controller";
 import { clearQuoteStats } from "../states/quote-rate";
-import {
-  getPbEligibility,
-  getResultTags,
-  showErrorCrownIfNeeded,
-  updateCrown,
-} from "./result-pb";
+import { getPbEligibility, getResultTags, updateCrown } from "./result-pb";
 import { showConfetti } from "../elements/confetti";
 import * as AdController from "../controllers/ad-controller";
 import * as Arrays from "../utils/arrays";
@@ -56,7 +48,6 @@ import {
   isRepeated,
   isTestActive,
   pushIncompleteTest,
-  resetIncompleteTests,
   setIsPaceRepeat,
   setIsRepeated,
   setIsTestInvalid,
@@ -67,7 +58,6 @@ import {
   getBailedOut,
   isResultCalculating,
   setBailedOut,
-  setLastSignedOutResult,
   setResultCalculating,
   setTestFinished,
   setTestActive,
@@ -90,10 +80,7 @@ import * as TestWords from "./test-words";
 import * as WordsGenerator from "./words-generator";
 import { canStartTest } from "./test-page-state";
 import { configEvent } from "../events/config";
-import objectHash from "object-hash";
 import * as AnalyticsController from "../controllers/analytics-controller";
-import { getAuthenticatedUser } from "../firebase";
-import { Mode } from "@monkeytype/schemas/shared";
 import {
   CompletedEvent,
   CompletedEventCustomText,
@@ -106,8 +93,6 @@ import {
   isFunboxActive,
   isFunboxActiveWithProperty,
 } from "./funbox/list";
-import { getFunbox } from "@monkeytype/funbox";
-import type { NormalizedLocalResult } from "../collections/results";
 import { WordGenError } from "../utils/word-gen-error";
 import { tryCatch } from "@monkeytype/util/trycatch";
 import * as Sentry from "../sentry";
@@ -118,11 +103,9 @@ import {
   setResultShown,
   resultState,
   setResultState,
-  setCrownType,
 } from "../states/result";
 import { blurInputElement, setInputElementValue } from "../input/input-element";
 import { debounce } from "throttle-debounce";
-import { setAccountButtonSpinner } from "../states/header";
 import { Config } from "../config/store";
 import { setQuoteLengthAll, toggleFunbox, setConfig } from "../config/setters";
 import {
@@ -1061,39 +1044,9 @@ export async function finish(difficultyFailed = false): Promise<void> {
   );
   setResultState("timeToday", TodayTracker.getString());
 
-  let savingResultPromise: ReturnType<typeof saveResult> =
-    Promise.resolve(null);
-  const user = getAuthenticatedUser();
-  if (user !== null) {
-    // logged in
-    if (dontSave) {
-      void AnalyticsController.log("testCompletedInvalid");
-    } else {
-      resetIncompleteTests();
-
-      if (!completedEvent.bailedOut) {
-        const challenge = ChallengeContoller.verify(completedEvent);
-        if (challenge !== null) completedEvent.challenge = challenge;
-      }
-
-      completedEvent.uid = user.uid;
-
-      savingResultPromise = saveResult(completedEvent, false);
-      void savingResultPromise.then((response) => {
-        if (response?.status === 200) {
-          void AnalyticsController.log("testCompleted");
-        }
-      });
-    }
-  } else {
-    // logged out
-    void AnalyticsController.log("testCompletedNoLogin");
-    if (!dontSave) {
-      // if its valid save it for later
-      setLastSignedOutResult(completedEvent);
-    }
-    dontSave = true;
-  }
+  // ExamType fork: no accounts, no server save, no signed-out prompt —
+  // results are stored only in collections/results.ts (local solid-db)
+  const savingResultPromise = Promise.resolve(null);
 
   const resultUpdatePromise = showResult(completedEvent, dontSave, {
     difficultyFailed,

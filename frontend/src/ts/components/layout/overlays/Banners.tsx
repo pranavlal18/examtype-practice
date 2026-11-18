@@ -1,6 +1,6 @@
 import { For, JSXElement, onCleanup, onMount, Show } from "solid-js";
-import { debounce } from "throttle-debounce";
 
+import { createEffectOn } from "../../../hooks/effects";
 import { useRefWithUtils } from "../../../hooks/useRefWithUtils";
 import {
   Banner as BannerType,
@@ -78,10 +78,8 @@ export function Banners(): JSXElement {
     setGlobalOffsetTop(height);
   };
 
-  const debouncedMarginUpdate = debounce(100, setGlobalOffsetSignal);
-
   onMount(() => {
-    window.addEventListener("resize", debouncedMarginUpdate);
+    window.addEventListener("resize", setGlobalOffsetSignal);
     if (isProfilerMode()) {
       addBanner({
         level: "error",
@@ -93,7 +91,7 @@ export function Banners(): JSXElement {
   });
 
   onCleanup(() => {
-    window.removeEventListener("resize", debouncedMarginUpdate);
+    window.removeEventListener("resize", setGlobalOffsetSignal);
   });
 
   createEffectOn(() => getBanners().length, setGlobalOffsetSignal);

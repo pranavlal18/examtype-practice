@@ -248,21 +248,17 @@ describe("Button component", () => {
         {() => (
           <>
             <Button to="/settings" text="Settings" />
-            <Button
-              to="/profile/$uidOrName"
-              params={{ uidOrName: "miodec" }}
-              text="Profile"
-            />
+            <Button to="/exam" text="Exam" />
           </>
         )}
       </RouterContextProvider>
     ));
 
-    const [settings, profile] = container.querySelectorAll("a");
+    const [settings, exam] = container.querySelectorAll("a");
     expect(settings).toHaveAttribute("href", "/settings");
     expect(settings).not.toHaveAttribute("target");
     expect(settings).toHaveAttribute("data-ui-element", "button");
-    expect(profile).toHaveAttribute("href", "/profile/miodec");
+    expect(exam).toHaveAttribute("href", "/exam");
   });
 
   it("renders a router link with search params in its href", () => {
@@ -272,9 +268,9 @@ describe("Button component", () => {
       <RouterContextProvider router={router}>
         {() => (
           <Button
-            to="/leaderboards"
+            to="/trainer"
             search={{ type: "daily", mode2: "15" }}
-            text="Leaderboards"
+            text="Trainer"
           />
         )}
       </RouterContextProvider>
@@ -282,7 +278,7 @@ describe("Button component", () => {
 
     expect(container.querySelector("a")).toHaveAttribute(
       "href",
-      "/leaderboards?type=daily&mode2=15",
+      "/trainer?type=daily&mode2=15",
     );
   });
 
@@ -295,14 +291,9 @@ describe("Button component", () => {
           <>
             {/* @ts-expect-error unknown route */}
             <Button to="/nope" text="Nope" />
-            {/* @ts-expect-error missing params */}
-            <Button to="/profile/$uidOrName" text="Profile" />
-            <Button
-              to="/profile/$uidOrName"
-              // @ts-expect-error unknown param
-              params={{ name: "miodec" }}
-              text="Profile"
-            />
+            {/* @ts-expect-error unknown param */}
+            <Button to="/exam" params={{ nope: "nope" }} text="Exam" />
+            <Button to="/exam" text="Exam" />
           </>
         )}
       </RouterContextProvider>
@@ -361,12 +352,8 @@ function createTestRouter(path = "/"): AnyRouter {
     routeTree: root.addChildren([
       createRoute({ getParentRoute: () => root, path: "/" }),
       createRoute({ getParentRoute: () => root, path: "/settings" }),
-      createRoute({ getParentRoute: () => root, path: "/leaderboards" }),
-      createRoute({ getParentRoute: () => root, path: "/profile" }),
-      createRoute({
-        getParentRoute: () => root,
-        path: "/profile/$uidOrName",
-      }),
+      createRoute({ getParentRoute: () => root, path: "/exam" }),
+      createRoute({ getParentRoute: () => root, path: "/trainer" }),
     ]),
     history: createMemoryHistory({ initialEntries: [path] }),
     // same string search format as the app router

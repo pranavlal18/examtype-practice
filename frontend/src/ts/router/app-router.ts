@@ -27,7 +27,7 @@ const auth = createRouterAuth({
   isAvailable: () => false,
   authState: () => loggedOut,
   userDataLoadState: () => noLoad,
-  reloadUserData: () => Promise.resolve(),
+  reloadUserData: async () => undefined,
   signOut: () => {
     // nothing to sign out of in this fork
   },

@@ -14,7 +14,6 @@ import { cn } from "../../utils/cn";
 import { convertRemToPixels } from "../../utils/numbers";
 import { Advertisement } from "../common/Advertisement";
 import { Anime } from "../common/anime";
-import { DevTools } from "../dev/DevTools";
 import { FocusModeExit } from "../layout/FocusModeExit";
 import { Footer } from "../layout/footer/Footer";
 import { Header } from "../layout/header/Header";
@@ -75,7 +74,6 @@ export function App(): JSXElement {
         <Footer />
         <Advertisement id="ad-footer" visible={"sellout"} />
       </Anime>
-      <DevTools />
       <NoCssDetails />
     </Providers>
   );

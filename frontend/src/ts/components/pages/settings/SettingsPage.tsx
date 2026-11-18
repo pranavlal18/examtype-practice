@@ -1,5 +1,4 @@
 import { createSignal, JSXElement, Show } from "solid-js";
-import { z } from "zod";
 
 import { resetConfig } from "../../../config/lifecycle";
 import { getConfig } from "../../../config/store";
@@ -8,8 +7,6 @@ import {
   previewClick,
   previewError,
 } from "../../../controllers/sound-controller";
-import { useLocalStorage } from "../../../hooks/useLocalStorage";
-import { isAuthenticated } from "../../../states/core";
 import { showModal } from "../../../states/modals";
 import { isSettingsSearchActive } from "../../../states/settings-search";
 import { showSimpleModal } from "../../../states/simple-modal";
@@ -68,9 +65,6 @@ export function SettingsPage(): JSXElement {
       {/* while filtering, lay the matching sections out with a uniform gap */}
       <div class={cn(isSettingsSearchActive() && "grid gap-8")}>
         <Section title="behavior">
-          <Show when={isAuthenticated()}>
-            <SearchableAutoSetting key="resultSaving" />
-          </Show>
           <SearchableAutoSetting key="difficulty" />
           <SearchableAutoSetting key="quickRestart" />
           <SearchableAutoSetting key="repeatQuotes" />
@@ -244,8 +238,6 @@ export function SettingsPage(): JSXElement {
           />
         </Section>
       </div>
-
-      <AccountSettingsNotice />
     </div>
   );
 }

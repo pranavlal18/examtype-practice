@@ -5,8 +5,13 @@
 
 import { createRoot } from "solid-js";
 
-import type { UserDataLoadState } from "../session-data";
 import type { AuthState } from "../states/core";
+
+type UserDataLoadState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "loaded" }
+  | { status: "failed"; error: unknown };
 
 import { createEffectOn } from "../hooks/effects";
 import { promiseWithResolvers } from "../utils/misc";

@@ -1,4 +1,4 @@
-import { JSXElement, Show } from "solid-js";
+import { JSXElement } from "solid-js";
 
 import { showCommandline } from "../../../states/commandline";
 import { getIsScreenshotting } from "../../../states/core";

@@ -66,7 +66,6 @@ import type { LetterStatus } from "../../src/ts/components/pages/test/WordLetter
 import { LETTER_SELECTOR } from "../../src/ts/components/pages/test/selectors";
 import { TestPage } from "../../src/ts/components/pages/test/TestPage";
 import { __testing as configTesting } from "../../src/ts/config/testing";
-import { compose, deleteWord, typeText } from "../../src/ts/dev/typing-driver";
 import { setRouter } from "../../src/ts/router/instance";
 import {
   currentLiveStats,
@@ -77,6 +76,7 @@ import {
 } from "../../src/ts/states/test";
 import * as CustomText from "../../src/ts/test/custom-text";
 import { paceCaretTarget } from "../../src/ts/test/pace-caret";
+import { compose, deleteWord, typeText } from "../../src/ts/test/typing-driver";
 
 // fake timers, then jsdom gaps: matchMedia (ad controller, on import; no
 // query matches) and scrolling (the test keeps itself in view)
