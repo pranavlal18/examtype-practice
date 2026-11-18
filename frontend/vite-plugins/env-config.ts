@@ -29,17 +29,14 @@ export function envConfig(options: {
             "http://localhost:5005",
           ),
           clientVersion: options.clientVersion,
-          recaptchaSiteKey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+          recaptchaSiteKey: "",
           quickLoginEmail: options.env["QUICK_LOGIN_EMAIL"],
           quickLoginPassword: options.env["QUICK_LOGIN_PASSWORD"],
         };
 
         const prodConfig: EnvConfig = {
           isDevelopment: false,
-          backendUrl: fallback(
-            options.env["BACKEND_URL"],
-            "https://api.monkeytype.com",
-          ),
+          backendUrl: fallback(options.env["BACKEND_URL"], ""),
           recaptchaSiteKey: options.env["RECAPTCHA_SITE_KEY"] ?? "",
           quickLoginEmail: undefined,
           quickLoginPassword: undefined,

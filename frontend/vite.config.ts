@@ -126,8 +126,8 @@ function getPlugins({
       injectRegister: null,
       registerType: "autoUpdate",
       manifest: {
-        short_name: "Monkeytype",
-        name: "Monkeytype",
+        short_name: "ExamType Practice",
+        name: "ExamType Practice",
         start_url: "/",
         icons: [
           {
@@ -143,9 +143,9 @@ function getPlugins({
             purpose: "any",
           },
         ],
-        background_color: "#323437",
+        background_color: "#172554",
         display: "standalone",
-        theme_color: "#323437",
+        theme_color: "#172554",
       },
       manifestFilename: "manifest.json",
       workbox: {
@@ -156,10 +156,7 @@ function getPlugins({
         navigateFallback: "",
         runtimeCaching: [
           {
-            urlPattern: (options) => {
-              const isApi = options.url.hostname === "api.monkeytype.com";
-              return options.sameOrigin && !isApi;
-            },
+            urlPattern: (options) => options.sameOrigin,
             handler: "NetworkFirst",
             options: {},
           },
@@ -195,11 +192,11 @@ function getBuildOptions({
     assetsInlineLimit: 0, //dont inline small files as data
     rolldownOptions: {
       input: {
-        monkeytype: path.resolve(__dirname, "src/index.html"),
+        "examtype-practice": path.resolve(__dirname, "src/index.html"),
         privacy: path.resolve(__dirname, "src/privacy-policy.html"),
         security: path.resolve(__dirname, "src/security-policy.html"),
         terms: path.resolve(__dirname, "src/terms-of-service.html"),
-        404: path.resolve(__dirname, "src/404.html"),
+        "404": path.resolve(__dirname, "src/404.html"),
       },
       output: {
         assetFileNames: (assetInfo) => {
@@ -235,7 +232,7 @@ function getBuildOptions({
               test: /node_modules\/@tanstack\//,
             },
             {
-              name: "monkeytype-packages",
+              name: "examtype-practice-packages",
               test: /monkeytype\/packages\//,
             },
             {
@@ -243,7 +240,7 @@ function getBuildOptions({
               test: /node_modules\/chart/,
             },
             {
-              name: "monkeytype-utils",
+              name: "examtype-practice-utils",
               test: /src\/ts\/utils\//,
             },
             {
