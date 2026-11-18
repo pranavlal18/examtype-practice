@@ -340,20 +340,11 @@ async function validateFonts(): Promise<void> {
       "Font files present but missing in frontend/src/ts/constants/fonts.ts",
   });
 
-  //no missing files
-  const ignoredFonts = new Set([
-    "GallaudetRegular.woff2", //used for asl
-    "Vazirharf-NL-Regular.woff2", //default font
-  ]);
-
-  const fontFiles = readdirNoDotfiles("./static/webfonts").filter(
-    (it) => !ignoredFonts.has(it),
-  );
+  const fontFiles = readdirNoDotfiles("./static/webfonts");
 
   //missing font files
   Object.entries(Fonts)
-    .filter(([_name, config]) => !config.systemFont)
-    .filter(([_name, config]) => !fontFiles.includes(config.fileName as string))
+    .filter(([_name, config]) => !fontFiles.includes(config.fileName))
     .forEach(([name, config]) =>
       problems.add(
         name as KnownFontName,
@@ -363,9 +354,7 @@ async function validateFonts(): Promise<void> {
 
   //additional font files
   const expectedFontFiles = new Set(
-    Object.entries(Fonts)
-      .filter(([_name, config]) => !config.systemFont)
-      .map(([_name, config]) => config.fileName as string),
+    Object.values(Fonts).map((config) => config.fileName),
   );
 
   fontFiles

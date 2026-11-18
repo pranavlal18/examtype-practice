@@ -29,7 +29,7 @@ export function Font(): JSXElement {
         ? `"${replaceUnderscoresWithSpaces(preferred)}"`
         : undefined,
       '"Roboto Mono"',
-      '"Vazirharf"',
+      '"Noto Naskh Arabic"',
       "monospace",
     ].filter((it) => it !== undefined);
 

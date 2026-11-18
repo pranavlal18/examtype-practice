@@ -11,7 +11,7 @@ Font metadata below was verified against the `name` tables of the in-repo font f
 - Noto Naskh Arabic — Version 2.018; Copyright 2022 The Noto Project Authors (<https://github.com/notofonts/arabic>); SIL Open Font License 1.1 (license URL recorded in font metadata id=14: <https://scripts.sil.org/OFL>). Full license text: <https://scripts.sil.org/OFL>.
 - Noto Sans Lao — Version 2.003; Copyright 2022 The Noto Project Authors (<https://github.com/notofonts/lao>); SIL Open Font License 1.1 (font metadata id=13 states the font is licensed under the SIL Open Font License, Version 1.1; license URL id=14: <https://scripts.sil.org/OFL>). Full license text: <https://scripts.sil.org/OFL>.
 
-The fonts above are kept in-repo under `frontend/static/webfonts/`. The SIL OFL 1.1 requires the license text to be included with the font software; the full OFL text is available at <https://scripts.sil.org/OFL> and <https://openfontlicense.org> and must be bundled with any redistributed copies of these fonts.
+The fonts above are kept in-repo under `frontend/static/webfonts/`. License texts are bundled under `frontend/static/licenses/` (`OFL-1.1.txt`, `Apache-2.0.txt`) and copied into `dist/licenses/` by the static build.
 
 ## Icons and libraries
 
