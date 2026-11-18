@@ -1,19 +1,16 @@
 import { JSXElement } from "solid-js";
 
 import { getIsScreenshotting } from "../../../states/core";
-import { showModal } from "../../../states/modals";
 import { isFocusMode } from "../../../states/test";
 import { cn } from "../../../utils/cn";
-import { Button } from "../../common/Button";
 import { isLoadingShown } from "../../core/PageSwitcher";
 import { Keytips } from "./Keytips";
 import { ThemeIndicator } from "./ThemeIndicator";
-import { VersionButton } from "./VersionButton";
 
 export function Footer(): JSXElement {
   return (
     <footer
-      class={cn("relative text-xs text-sub", {
+      class={cn("relative flex flex-col text-xs text-sub", {
         "opacity-0": getIsScreenshotting(),
       })}
       data-focused={isFocusMode() ? "" : undefined}
@@ -22,101 +19,25 @@ export function Footer(): JSXElement {
       <Keytips />
 
       <div
-        class={cn("-m-2 flex justify-between gap-8 transition-opacity", {
+        class={cn("flex items-center justify-end transition-opacity", {
           "opacity-0": isFocusMode(),
         })}
       >
-        <div class="grid grid-cols-1 justify-items-start xs:grid-cols-2 sm:grid-cols-4 lg:flex">
-          <Button
-            variant="text"
-            text="contact"
-            fa={{
-              icon: "fa-envelope",
-              fixedWidth: true,
-            }}
-            onClick={() => showModal("Contact")}
-          />
-          <Button
-            variant="text"
-            text="support"
-            fa={{
-              icon: "fa-donate",
-              fixedWidth: true,
-            }}
-            onClick={() => showModal("Support")}
-          />
-          <Button
-            variant="text"
-            text="monkeytype (upstream)"
-            fa={{
-              icon: "fa-code",
-              fixedWidth: true,
-            }}
-            href="https://github.com/monkeytypegame/monkeytype"
-          />
-          <Button
-            variant="text"
-            text="discord"
-            fa={{
-              icon: "fa-discord",
-              variant: "brand",
-              fixedWidth: true,
-            }}
-            href="https://www.discord.gg/monkeytype"
-          />
-          <Button
-            variant="text"
-            text="twitter"
-            fa={{
-              icon: "fa-twitter",
-              variant: "brand",
-              fixedWidth: true,
-            }}
-            href="https://x.com/monkeytype"
-          />
-          <Button
-            variant="text"
-            text="terms"
-            fa={{
-              icon: "fa-file-contract",
-              fixedWidth: true,
-            }}
-            href="/terms-of-service.html"
-          />
-          <Button
-            href="/security-policy.html"
-            variant="text"
-            text="security"
-            fa={{
-              icon: "fa-shield-alt",
-              fixedWidth: true,
-            }}
-          />
-          <Button
-            href="/privacy-policy.html"
-            variant="text"
-            text="privacy"
-            fa={{
-              icon: "fa-lock",
-              fixedWidth: true,
-            }}
-          />
-        </div>
-        <div class="flex flex-col items-end text-right lg:flex-row">
-          <ThemeIndicator />
-          <VersionButton />
-        </div>
+        <ThemeIndicator />
       </div>
-      <p class="mt-2 text-[10px] text-sub opacity-70">
-        ExamType is a free, open-source fork of{" "}
+      <p class="mt-2 border-t border-sub-alt pt-2 text-[10px] leading-4 text-sub opacity-80">
+        ExamType — free, open-source practice tool for SSC CGL / CHSL and RRB
+        NTPC typing tests.{" "}
         <a
           href="https://github.com/monkeytypegame/monkeytype"
-          class="underline"
+          class="underline hover:text-text"
+          target="_blank"
+          rel="noreferrer noopener"
         >
-          Monkeytype
+          Fork of Monkeytype
         </a>{" "}
-        (GPL-3.0). Unofficial practice tool — not affiliated with the Staff
-        Selection Commission or Indian Railways.
+        (GPL-3.0), reworked and independently maintained. Not affiliated with
+        the Staff Selection Commission or Indian Railways.
       </p>
     </footer>
   );
