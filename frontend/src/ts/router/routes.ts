@@ -19,6 +19,8 @@ import { PageSwitcher } from "../components/core/PageSwitcher";
 import { AboutPage } from "../components/pages/AboutPage";
 import { AccountSettingsPage } from "../components/pages/account-settings/AccountSettingsPage";
 import { AccountPage } from "../components/pages/account/AccountPage";
+import { ExamPage } from "../components/pages/exam/ExamPage";
+import { TrainerPage } from "../components/pages/trainer/TrainerPage";
 import { FriendsPage } from "../components/pages/connections/FriendsPage";
 import { LeaderboardPage } from "../components/pages/leaderboard/LeaderboardPage";
 import { LoginPage } from "../components/pages/login/LoginPage";
@@ -71,7 +73,9 @@ export type PageName =
   | "404"
   | "accountSettings"
   | "friends"
-  | "leaderboards";
+  | "leaderboards"
+  | "exam"
+  | "trainer";
 
 declare module "@tanstack/solid-router" {
   // oxlint-disable-next-line typescript/consistent-type-definitions -- module augmentation needs an interface
@@ -409,6 +413,20 @@ const friends = createRoute({
   },
 });
 
+const exam = createRoute({
+  getParentRoute: () => userDataRoute,
+  path: "/exam",
+  staticData: { page: "exam" },
+  component: createRouterPage(ExamPage),
+});
+
+const trainer = createRoute({
+  getParentRoute: () => userDataRoute,
+  path: "/trainer",
+  staticData: { page: "trainer" },
+  component: createRouterPage(TrainerPage),
+});
+
 export const routeTree = root.addChildren([
   userDataRoute.addChildren([
     test,
@@ -421,5 +439,7 @@ export const routeTree = root.addChildren([
     profileSearch,
     profile,
     friends,
+    exam,
+    trainer,
   ]),
 ]);

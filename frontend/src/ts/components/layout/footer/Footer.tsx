@@ -47,7 +47,7 @@ export function Footer(): JSXElement {
           />
           <Button
             variant="text"
-            text="github"
+            text="monkeytype (upstream)"
             fa={{
               icon: "fa-code",
               fixedWidth: true,
@@ -107,6 +107,17 @@ export function Footer(): JSXElement {
           <VersionButton />
         </div>
       </div>
+      <p class="mt-2 text-[10px] text-sub opacity-70">
+        ExamType is a free, open-source fork of{" "}
+        <a
+          href="https://github.com/monkeytypegame/monkeytype"
+          class="underline"
+        >
+          Monkeytype
+        </a>{" "}
+        (GPL-3.0). Unofficial practice tool — not affiliated with the Staff
+        Selection Commission or Indian Railways.
+      </p>
     </footer>
   );
 }

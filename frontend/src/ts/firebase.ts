@@ -26,10 +26,10 @@ import { promiseWithResolvers } from "./utils/misc";
 import { isDevEnvironment } from "./utils/env";
 import { createErrorMessage } from "./utils/error";
 
-import {
-  Analytics as AnalyticsType,
-  getAnalytics as firebaseGetAnalytics,
-} from "firebase/analytics";
+// NB: firebase/analytics is imported lazily (never statically). Browsers
+// with ad/privacy blockers may refuse to fetch firebase_analytics.js; a
+// static import would take down the whole boot graph and blank the app.
+export type AnalyticsType = import("firebase/analytics").Analytics;
 import { tryCatch } from "@monkeytype/util/trycatch";
 import { showGoogleSignUpModal } from "./states/google-sign-up";
 import { addBanner } from "./states/banners";
@@ -92,8 +92,20 @@ export function getAuthenticatedUser(): User | null {
   return Auth?.currentUser ?? null;
 }
 
-export function getAnalytics(): AnalyticsType {
-  return firebaseGetAnalytics(app);
+/**
+ * Lazily create the Analytics instance. Returns undefined when analytics is
+ * unavailable (blocked or uninitialized) instead of throwing — the app works
+ * fine without it.
+ */
+export async function getAnalytics(): Promise<AnalyticsType | undefined> {
+  try {
+    if (app === undefined) return undefined;
+    const mod = await import("firebase/analytics");
+    return mod.getAnalytics(app);
+  } catch (e) {
+    console.log("Analytics unavailable", e);
+    return undefined;
+  }
 }
 
 export function isAuthAvailable(): boolean {

@@ -12,7 +12,7 @@ export function Logo(): JSXElement {
     <Link
       to="/"
       class="group/logo -m-2 flex h-6 w-max gap-2 rounded-[0.8rem] p-2"
-      aria-label="Monkeytype Home"
+      aria-label="ExamType Home"
       style={{
         "box-sizing": "content-box",
         "font-family": "Lexend Deca ,sans-serif",
@@ -51,7 +51,7 @@ export function Logo(): JSXElement {
           )}
           data-ui-element="logoSubtext"
         >
-          {isDevEnvironment() ? "localhost" : "monkey see"}
+          {isDevEnvironment() ? "localhost" : "exam hall"}
         </div>
         <h1
           class={cn("-mt-[0.11em] text-text transition-colors duration-250", {
@@ -59,7 +59,7 @@ export function Logo(): JSXElement {
           })}
           data-ui-element="logoText"
         >
-          monkeytype
+          examtype
         </h1>
       </div>
     </Link>

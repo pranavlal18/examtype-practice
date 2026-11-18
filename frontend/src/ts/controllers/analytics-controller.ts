@@ -1,50 +1,45 @@
-import {
-  Analytics as AnalyticsType,
-  logEvent,
-  setAnalyticsCollectionEnabled,
-} from "firebase/analytics";
+import type { Analytics as AnalyticsType } from "firebase/analytics";
+
 import { getAnalytics } from "../firebase";
 import { createErrorMessage } from "../utils/error";
 
-let analytics: AnalyticsType;
+let analytics: AnalyticsType | undefined;
 
+/**
+ * Fire-and-forget event log. No-op until analytics is activated (and silent
+ * when a browser blocks firebase/analytics entirely — the common case with
+ * ad/privacy blockers, and the expected state for this zero-backend fork).
+ */
 export async function log(
   eventName: string,
   params?: Record<string, string>,
 ): Promise<void> {
+  if (analytics === undefined) return;
   try {
+    const { logEvent } = await import("firebase/analytics");
     logEvent(analytics, eventName, params);
-  } catch (e) {
+  } catch {
     console.log("Analytics unavailable");
   }
 }
 
-export function activateAnalytics(): void {
+/** Opt-in only (see cookies.ts). Never blocks boot; never fails loudly. */
+export async function activateAnalytics(): Promise<void> {
   if (analytics !== undefined) {
     console.warn("Analytics already activated");
     return;
   }
-  console.log("Activating Analytics");
   try {
-    analytics = getAnalytics();
-    setAnalyticsCollectionEnabled(analytics, true);
-    document.body.insertAdjacentHTML(
-      "beforeend",
-      `
-    <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=UA-165993088-1"
-  ></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "UA-165993088-1");
-  </script>`,
-    );
+    const instance = await getAnalytics();
+    if (instance === undefined) return;
+    const { setAnalyticsCollectionEnabled } =
+      await import("firebase/analytics");
+    // NB: the upstream fork fires events into Monkeytype's GA property —
+    // deliberately dropped here. Collection stays local/disabled unless a
+    // maintainer wires their own property in explicitly.
+    setAnalyticsCollectionEnabled(instance, true);
+    analytics = instance;
+    console.log("Analytics activated");
   } catch (e) {
     console.error(createErrorMessage(e, "Failed to activate analytics"));
   }

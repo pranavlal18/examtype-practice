@@ -1,6 +1,9 @@
 [![](https://github.com/monkeytypegame/monkeytype/blob/master/frontend/static/images/githubbanner2.png?raw=true)](https://monkeytype.com/)
 <br />
 
+> **ExamType** is a fork of [Monkeytype](https://github.com/monkeytypegame/monkeytype) (GPL-3.0) that re-purposes the engine for **Indian government competitive exam typing practice** — SSC CGL DEST, SSC CHSL and RRB NTPC. It adds an authentic **Real Exam Mode** (split-screen, no live highlighting, official error-percentage scoring, category-wise PASS/FAIL verdicts) at `/exam`. The upstream project remains the source of truth for the general typing experience; this fork is maintained separately and is not affiliated with SSC, RRB or the Monkeytype project. All original Monkeytype attribution below applies.
+<br />
+
 [![AnimeJs](https://img.shields.io/badge/Anime.js-ff4b4b?style=for-the-badge&logo=animedotjs&logoColor=white)](https://animejs.com/)&nbsp;
 [![ChartJs](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white)](https://www.chartjs.org/)&nbsp;
 [![Eslint](https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)](https://eslint.org/)&nbsp;
@@ -22,6 +25,26 @@
 [![Vite](https://img.shields.io/badge/Vite-9135FF?style=for-the-badge&logo=Vite&logoColor=white)](https://vitejs.dev/)&nbsp;
 [![Vitest](https://img.shields.io/badge/vitest-00FF74?style=for-the-badge&logo=vitest&logoColor=white)](https://vitest.dev/)&nbsp;
 [![Zod](https://img.shields.io/badge/-Zod-408AFF?style=for-the-badge&logo=zod&logoColor=white)](https://zod.dev/)
+
+# ExamType: the government exam simulator (this fork)
+
+ExamType turns Monkeytype into a specialized tool for the **SSC CGL DEST (Data Entry Speed Test), SSC CHSL and RRB NTPC** typing examinations. What it adds:
+
+- **Real Exam Mode (`/exam`)** — authentic split-screen layout (scrollable passage in Times New Roman on top, plain textarea below), 15/10/5-minute countdown, no live error highlighting, no auto-scroll, mistakes revealed only after submitting. Optional backspace-disable toggle (a discipline drill — backspace *is* allowed in real SSC CGL/CHSL exams).
+- **Official SSC evaluation on the result screen** — Total Key Depressions, KDPH (with the 2,000 KD ≈ 8,000 KDPH reference), Net WPM, and a word-level diff that classifies **Full mistakes (1.0)** vs **Half mistakes (0.5)**. Error % drives side-by-side **PASS / FAIL** badges for **Strict posts** (UR 5 / OBC-EWS 7 / SC-ST-PwBD 7), **General posts** (UR 20 / OBC-EWS 25 / SC-ST-PwBD 30) and the **SSC CHSL** standard (UR 7 / others 10), selectable per category.
+- **Custom Text** — paste any passage (200–10,000 chars, soft target ~2,000) and practice it in exam conditions.
+- Fully client-side; nothing leaves your browser; deployable to any static host (Vercel/Netlify free tier) with an SPA fallback rewrite.
+
+Build & deploy (static):
+
+```bash
+pnpm install
+pnpm build-fe        # outputs static files to dist/
+```
+
+Serve `dist/` with a catch-all rewrite to `index.html` (see `vercel.json`). No backend is required; sign-in stays disabled-friendly and ads are off by default in this fork.
+
+**Expectations without a backend** (by design, offline-first): everything in the exam simulator and trainer works fully offline — typing tests, `/exam`, `/trainer`, history, weak-key tracking, themes. The backend-dependent upstream pages (`/leaderboards`, `/about` stats, `/friends`, account) show "Failed to fetch" errors; they need a self-hosted backend and are not part of this fork's promise. "Dev Info" banners (backend not running, Firebase failed to initialize) appear only in development.
 
 # About
 

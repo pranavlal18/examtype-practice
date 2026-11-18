@@ -85,7 +85,9 @@ node_modules_bak/
 .firebaserc_copy
 serviceAccountKey*.json
 !docker/serviceAccountKey-example.json
-frontend/src/ts/constants/firebase-config.ts
+# ExamType fork: firebase-config.ts is a committed dummy (empty values, no
+# secrets) so CI/Vercel builds resolve it. Put real keys only in
+# firebase-config-live.ts, which stays ignored.
 frontend/src/ts/constants/firebase-config-live.ts
 
 #generated files

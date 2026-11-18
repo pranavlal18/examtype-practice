@@ -111,6 +111,32 @@ export function Nav(): JSXElement {
       <Button
         variant="text"
         fa={{
+          icon: "fa-graduation-cap",
+          fixedWidth: true,
+        }}
+        dataset={{
+          "data-nav-item": "exam",
+        }}
+        class={buttonClass()}
+        to="/exam"
+        balloon={{ text: "government exam simulator", position: "down" }}
+      />
+      <Button
+        variant="text"
+        fa={{
+          icon: "fa-dumbbell",
+          fixedWidth: true,
+        }}
+        dataset={{
+          "data-nav-item": "trainer",
+        }}
+        class={buttonClass()}
+        to="/trainer"
+        balloon={{ text: "weak-key trainer", position: "down" }}
+      />
+      <Button
+        variant="text"
+        fa={{
           icon: "fa-info",
           fixedWidth: true,
         }}

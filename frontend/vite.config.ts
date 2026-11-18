@@ -334,7 +334,12 @@ export default defineConfig(({ mode }): UserConfig => {
 
   if (!isDevelopment) {
     if (env["RECAPTCHA_SITE_KEY"] === undefined) {
-      throw new Error(`${mode}: RECAPTCHA_SITE_KEY is not defined`);
+      // ExamType fork: the site deploys as a static, zero-backend bundle with
+      // sign-in effectively unavailable, so no recaptcha is required. Set
+      // RECAPTCHA_SITE_KEY when wiring accounts back in.
+      console.warn(
+        "warning: RECAPTCHA_SITE_KEY is not defined — building without recaptcha (ExamType fork)",
+      );
     }
     if (useSentry && env["SENTRY_AUTH_TOKEN"] === undefined) {
       throw new Error(`${mode}: SENTRY_AUTH_TOKEN is not defined`);
@@ -353,14 +358,11 @@ export default defineConfig(({ mode }): UserConfig => {
     resolve: {
       alias: [
         ...workspacePackagesAlias,
-        ...(isDevelopment
-          ? []
-          : [
-              {
-                find: /\/constants\/firebase-config$/,
-                replacement: "/constants/firebase-config-live",
-              },
-            ]),
+        // ExamType fork: upstream rewrites firebase-config to the gitignored
+        // firebase-config-live (real prod keys). This fork has no backend and
+        // ships a committed empty dummy instead, so the prod build resolves
+        // exactly like dev. Set your own key/config here if you re-enable
+        // accounts.
       ],
     },
     clearScreen: false,
