@@ -1,10 +1,6 @@
 import { navigate } from "../../router/navigate";
-import { isAuthenticated } from "../../states/core";
 import { toggleFullscreen } from "../../utils/misc";
-import { Command, withValidation } from "../types";
-import { remoteValidation } from "../../utils/remote-validation";
-import { UserNameWithoutFilterSchema } from "@monkeytype/schemas/users";
-import Ape from "../../ape";
+import { Command } from "../types";
 
 const commands: Command[] = [
   {
@@ -17,21 +13,21 @@ const commands: Command[] = [
     },
   },
   {
-    id: "viewLeaderboards",
-    display: "View Leaderboards",
-    alias: "navigate go to",
-    fa: { icon: "fa-crown" },
+    id: "viewExam",
+    display: "View Government Exam Simulator",
+    alias: "navigate exam dest ssc government test",
+    fa: { icon: "fa-graduation-cap" },
     exec: (): void => {
-      void navigate({ to: "/leaderboards" });
+      void navigate({ to: "/exam" });
     },
   },
   {
-    id: "viewAbout",
-    display: "View About Page",
-    alias: "navigate go to",
-    fa: { icon: "fa-info" },
+    id: "viewTrainer",
+    display: "View Weak-Key Trainer",
+    alias: "navigate trainer weak keys drill",
+    fa: { icon: "fa-dumbbell" },
     exec: (): void => {
-      void navigate({ to: "/about" });
+      void navigate({ to: "/trainer" });
     },
   },
   {
@@ -43,40 +39,6 @@ const commands: Command[] = [
       void navigate({ to: "/settings" });
     },
   },
-
-  {
-    id: "viewAccount",
-    display: "View Account Page",
-    alias: "navigate go to stats",
-    fa: { icon: "fa-user" },
-    exec: (): void => {
-      void navigate({ to: isAuthenticated() ? "/account" : "/login" });
-    },
-  },
-  withValidation({
-    id: "searchProfile",
-    display: "Search for a profile",
-    alias: "profile user search find lookup",
-    fa: { icon: "fa-search" },
-    input: true,
-    validation: {
-      schema: UserNameWithoutFilterSchema,
-      debounceDelay: 1000,
-      isValid: remoteValidation(
-        async (name) => Ape.users.getProfile({ params: { uidOrName: name } }),
-        {
-          on4xx: () => "Unknown user",
-        },
-      ),
-    },
-    exec: ({ input }): void => {
-      if (input === undefined) return;
-      void navigate({
-        to: "/profile/$uidOrName",
-        params: { uidOrName: input },
-      });
-    },
-  }),
   {
     id: "toggleFullscreen",
     display: "Toggle Fullscreen",

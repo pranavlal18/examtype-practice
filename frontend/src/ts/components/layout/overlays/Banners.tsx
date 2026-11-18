@@ -1,9 +1,7 @@
 import { For, JSXElement, onCleanup, onMount, Show } from "solid-js";
 import { debounce } from "throttle-debounce";
 
-import { createEffectOn } from "../../../hooks/effects";
 import { useRefWithUtils } from "../../../hooks/useRefWithUtils";
-import { getUserData } from "../../../queries/user";
 import {
   Banner as BannerType,
   addBanner,
@@ -15,7 +13,6 @@ import { isFocusMode } from "../../../states/test";
 import { cn } from "../../../utils/cn";
 import { isProfilerMode } from "../../../utils/profiler-mode";
 import { Fa } from "../../common/Fa";
-import { showUpdateNameModal } from "../../modals/account-settings/UpdateNameModal";
 
 function Banner(props: BannerType): JSXElement {
   const remove = (): void => {
@@ -75,34 +72,6 @@ function Banner(props: BannerType): JSXElement {
 
 export function Banners(): JSXElement {
   const [ref, element] = useRefWithUtils();
-
-  let nameChangeAdded = false;
-  createEffectOn(
-    () => getUserData()?.needsToChangeName,
-    (needsToChange) => {
-      if (needsToChange && !nameChangeAdded) {
-        nameChangeAdded = true;
-        addBanner({
-          level: "error",
-          icon: "fas fa-exclamation-triangle",
-          customContent: (
-            <>
-              You need to update your account name.{" "}
-              <button
-                type="button"
-                class="px-2 py-1"
-                onClick={() => showUpdateNameModal()}
-              >
-                Click here
-              </button>{" "}
-              to change it and learn more about why.
-            </>
-          ),
-          important: true,
-        });
-      }
-    },
-  );
 
   const setGlobalOffsetSignal = (): void => {
     const height = element()?.getOffsetHeight() ?? 0;

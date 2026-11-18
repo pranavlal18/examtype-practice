@@ -39,9 +39,7 @@ import { MinAcc } from "./custom-setting/MinAcc";
 import { MinBurst } from "./custom-setting/MinBurst";
 import { MinSpeed } from "./custom-setting/MinSpeed";
 import { PaceCaret } from "./custom-setting/PaceCaret";
-import { Presets } from "./custom-setting/Presets";
 import { SoundVolume } from "./custom-setting/SoundVolume";
-import { Tags } from "./custom-setting/Tags";
 import { Theme } from "./custom-setting/Theme";
 import { QuickNav } from "./QuickNav";
 import { SearchableAutoSetting } from "./SearchableAutoSetting";
@@ -66,14 +64,11 @@ export function SettingsPage(): JSXElement {
           <br />( <CommandlineHotkey /> )
         </div>
       </Show>
-      <AccountSettingsNotice />
       <SettingsSearch />
       {/* while filtering, lay the matching sections out with a uniform gap */}
       <div class={cn(isSettingsSearchActive() && "grid gap-8")}>
         <Section title="behavior">
           <Show when={isAuthenticated()}>
-            <Tags />
-            <Presets />
             <SearchableAutoSetting key="resultSaving" />
           </Show>
           <SearchableAutoSetting key="difficulty" />
@@ -192,24 +187,6 @@ export function SettingsPage(): JSXElement {
         <Section title="danger zone">
           <ImportExport />
           <SearchableSetting
-            key="cookies"
-            title="update cookie preferences"
-            description="If you changed your mind about which cookies you consent to, you can change your preferences here."
-            fa={{
-              icon: "fa-cookie-bite",
-            }}
-            inputs={
-              <Button
-                class="w-full"
-                onClick={() => {
-                  showModal("Cookies");
-                }}
-              >
-                open
-              </Button>
-            }
-          />
-          <SearchableSetting
             key="theRest"
             title="the rest"
             description="Niche settings that only affect minor functionality. Most people will never need to touch these."
@@ -270,39 +247,6 @@ export function SettingsPage(): JSXElement {
 
       <AccountSettingsNotice />
     </div>
-  );
-}
-
-function AccountSettingsNotice(): JSXElement {
-  const [dismissed, setDismissed] = useLocalStorage({
-    key: "accountSettingsMessageDismissed",
-    schema: z.boolean(),
-    fallback: false,
-  });
-  return (
-    <Show when={!dismissed()}>
-      <div
-        class={cn(
-          "grid grid-cols-[auto_1fr] items-center gap-4 rounded px-4 py-4 ring-4 ring-sub-alt md:grid-cols-[auto_1fr_auto] md:gap-8",
-          isSettingsSearchActive() && "hidden",
-        )}
-      >
-        <Fa icon="fa-user-cog" class="text-4xl text-sub" />
-        <div>
-          Account settings have moved. You can now access them by hovering over
-          the account button in the top right corner, then clicking
-          &quot;Account settings&quot;.
-        </div>
-        <Button
-          text="go to account settings"
-          to="/account-settings"
-          class="col-span-2 p-4 md:col-span-1"
-          onClick={() => {
-            setDismissed(true);
-          }}
-        />
-      </div>
-    </Show>
   );
 }
 

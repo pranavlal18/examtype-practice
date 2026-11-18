@@ -1,275 +1,56 @@
-import {
-  FirebaseApp,
-  FirebaseError,
-  FirebaseOptions,
-  getApp,
-  getApps,
-  initializeApp,
-} from "firebase/app";
-import {
-  getAuth,
-  Auth as AuthType,
-  User,
-  setPersistence as firebaseSetPersistence,
-  browserSessionPersistence,
-  signInWithEmailAndPassword as firebaseSignInWithEmailAndPassword,
-  signInWithPopup as firebaseSignInWithPopup,
-  createUserWithEmailAndPassword as firebaseCreateUserWithEmailAndPassword,
-  getIdToken as firebaseGetIdToken,
-  UserCredential,
-  AuthProvider,
-  onAuthStateChanged,
-  indexedDBLocalPersistence,
-  getAdditionalUserInfo,
-} from "firebase/auth";
-import { promiseWithResolvers } from "./utils/misc";
-import { isDevEnvironment } from "./utils/env";
-import { createErrorMessage } from "./utils/error";
-
-// NB: firebase/analytics is imported lazily (never statically). Browsers
-// with ad/privacy blockers may refuse to fetch firebase_analytics.js; a
-// static import would take down the whole boot graph and blank the app.
-export type AnalyticsType = import("firebase/analytics").Analytics;
-import { tryCatch } from "@monkeytype/util/trycatch";
-import { showGoogleSignUpModal } from "./states/google-sign-up";
-import { addBanner } from "./states/banners";
-import { setAuthState, setUserId, setUserVerified } from "./states/core";
-import { batch } from "solid-js";
-
-let app: FirebaseApp | undefined;
-let Auth: AuthType | undefined;
-
 /**
- * ignore auth callback. This is used during signup with google/github where we need to create the user on the backend first.
+ * ExamType fork: Firebase is fully stubbed out. No network calls, no auth,
+ * no analytics, no gating on build-time env. Same exported API as upstream
+ * (`authPromise`, `initFirebase`, auth helpers) so callers keep compiling;
+ * everything resolves as "signed out", which is the honest state of a fork
+ * with no account system.
  */
-let ignoreAuthCallback: boolean = false;
 
-const { promise: authPromise, resolve: resolveAuthPromise } =
-  promiseWithResolvers();
+export type AnalyticsType = import("firebase/analytics").Analytics;
+
+export const authPromise: Promise<void> = Promise.resolve();
 
 export async function initFirebase(): Promise<void> {
-  try {
-    let firebaseConfig: FirebaseOptions | null;
-
-    firebaseConfig = (
-      (await import("./constants/firebase-config")) as {
-        firebaseConfig: FirebaseOptions;
-      }
-    ).firebaseConfig;
-
-    app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-    Auth = getAuth(app);
-
-    const rememberMe =
-      window.localStorage.getItem("firebasePersistence") === "LOCAL";
-    await setPersistence(rememberMe, false);
-
-    onAuthStateChanged(Auth, (user) => {
-      if (!ignoreAuthCallback) setUserState(user);
-    });
-  } catch (e) {
-    app = undefined;
-    Auth = undefined;
-    console.error("Firebase failed to initialize", e);
-    setUserState(null);
-    if (isDevEnvironment()) {
-      addBanner({
-        level: "notice",
-        text: "Dev Info: Firebase failed to initialize",
-        icon: "fas fa-exclamation-triangle",
-      });
-    }
-  } finally {
-    resolveAuthPromise();
-  }
+  // throwaway: resolve immediately; callers already wait on authPromise
 }
 
-/**
- *
- * @returns the current user if authenticated, else `null`
- */
-export function getAuthenticatedUser(): User | null {
-  return Auth?.currentUser ?? null;
-}
-
-/**
- * Lazily create the Analytics instance. Returns undefined when analytics is
- * unavailable (blocked or uninitialized) instead of throwing — the app works
- * fine without it.
- */
 export async function getAnalytics(): Promise<AnalyticsType | undefined> {
-  try {
-    if (app === undefined) return undefined;
-    const mod = await import("firebase/analytics");
-    return mod.getAnalytics(app);
-  } catch (e) {
-    console.log("Analytics unavailable", e);
-    return undefined;
-  }
+  // no analytics service: always unavailable
+  return undefined;
 }
 
 export function isAuthAvailable(): boolean {
-  return Auth !== undefined;
+  return false;
+}
+
+export function getAuthenticatedUser(): import("firebase/auth").User | null {
+  return null;
+}
+
+export function finishSignUp(): void {
+  // no-op
+}
+
+export async function cancelSignUp(): Promise<void> {
+  // no-op
 }
 
 export async function signOut(): Promise<void> {
-  console.log("auth signout");
-  await Auth?.signOut();
+  // no-op
 }
 
-export async function signInWithEmailAndPassword(
-  email: string,
-  password: string,
-  rememberMe: boolean,
-): Promise<UserCredential> {
-  if (Auth === undefined) throw new Error("Authentication uninitialized");
-  await setPersistence(rememberMe, true);
-
-  const { data: result, error } = await tryCatch(
-    firebaseSignInWithEmailAndPassword(Auth, email, password),
-  );
-  if (error !== null) {
-    console.error(error);
-    throw translateFirebaseError(
-      error,
-      "Failed to sign in with email and password",
-    );
-  }
-
-  return result;
+export async function getIdToken(): Promise<null> {
+  return null;
 }
 
-/** The only writer of the auth signals (auth state, user id, verified). */
-function setUserState(user: User | null): void {
-  batch(() => {
-    if (user === null) {
-      setUserId(null);
-      setUserVerified(false);
-      setAuthState("signedOut");
-    } else {
-      setUserId(user.uid);
-      setUserVerified(user.emailVerified);
-      setAuthState("signedIn");
-    }
-  });
+export async function signInWithEmailAndPassword(): Promise<never> {
+  throw new Error("Accounts are disabled in ExamType (offline fork).");
 }
 
-/**
- * Signs in the user a sign up just created (Firebase's current user): the
- * auth callback was ignored while the sign up created the user on the backend.
- */
-export function finishSignUp(): void {
-  ignoreAuthCallback = false;
-  setUserState(getAuthenticatedUser());
+export async function signInWithPopup(): Promise<never> {
+  throw new Error("Accounts are disabled in ExamType (offline fork).");
 }
 
-export async function signInWithPopup(
-  provider: AuthProvider,
-  rememberMe: boolean,
-): Promise<void> {
-  if (Auth === undefined) throw new Error("Authentication uninitialized");
-  await setPersistence(rememberMe, true);
-  ignoreAuthCallback = true;
-
-  const { data: signedInUser, error } = await tryCatch(
-    firebaseSignInWithPopup(Auth, provider),
-  );
-  if (error !== null) {
-    ignoreAuthCallback = false;
-    console.log(error);
-    throw translateFirebaseError(error, "Failed to sign in with popup");
-  }
-  const additionalUserInfo = getAdditionalUserInfo(signedInUser);
-  if (additionalUserInfo?.isNewUser) {
-    showGoogleSignUpModal(signedInUser);
-  } else {
-    ignoreAuthCallback = false;
-    setUserState(signedInUser.user);
-  }
+export async function createUserWithEmailAndPassword(): Promise<never> {
+  throw new Error("Accounts are disabled in ExamType (offline fork).");
 }
-
-export async function createUserWithEmailAndPassword(
-  email: string,
-  password: string,
-): Promise<UserCredential> {
-  if (Auth === undefined) throw new Error("Authentication uninitialized");
-  ignoreAuthCallback = true;
-  const result = await firebaseCreateUserWithEmailAndPassword(
-    Auth,
-    email,
-    password,
-  );
-
-  return result;
-}
-
-export async function getIdToken(): Promise<string | null> {
-  const user = getAuthenticatedUser();
-  if (user === null) return null;
-  return firebaseGetIdToken(user);
-}
-async function setPersistence(
-  rememberMe: boolean,
-  store = false,
-): Promise<void> {
-  if (Auth === undefined) throw new Error("Authentication uninitialized");
-  const persistence = rememberMe
-    ? indexedDBLocalPersistence
-    : browserSessionPersistence;
-
-  if (store) {
-    window.localStorage.setItem(
-      "firebasePersistence",
-      rememberMe ? "LOCAL" : "SESSION",
-    );
-  }
-
-  await firebaseSetPersistence(Auth, persistence);
-}
-
-function translateFirebaseError(
-  error: Error | FirebaseError,
-  defaultMessage: string,
-): Error {
-  let message = createErrorMessage(error, defaultMessage);
-
-  if (error instanceof FirebaseError) {
-    if (error.code === "auth/wrong-password") {
-      message = "Incorrect password";
-    } else if (error.code === "auth/user-not-found") {
-      message = "User not found";
-    } else if (error.code === "auth/invalid-email") {
-      message =
-        "Invalid email format (make sure you are using your email to login - not your username)";
-    } else if (error.code === "auth/invalid-credential") {
-      message =
-        "Email/password is incorrect or your account does not have password authentication enabled.";
-    } else if (error.code === "auth/popup-closed-by-user") {
-      message = "Popup closed by user";
-    } else if (error.code === "auth/popup-blocked") {
-      message =
-        "Sign in popup was blocked by the browser. Check the address bar for a blocked popup icon, or update your browser settings to allow popups.";
-    } else if (error.code === "auth/user-cancelled") {
-      message = "Cancelled by user";
-    } else if (error.code === "auth/account-exists-with-different-credential") {
-      message =
-        "Account already exists, but its using a different authentication method. Try signing in with a different method";
-    } else {
-      message = `Firebase error: ${error.code}`;
-    }
-  }
-
-  return new Error(message, { cause: error });
-}
-
-/**
- * Ends a sign up that won't finish (failed or cancelled): listens to the auth
- * callback again and signs out of Firebase. The app never saw the user sign
- * in, so its own sign out would do nothing.
- */
-export async function cancelSignUp(): Promise<void> {
-  ignoreAuthCallback = false;
-  await Auth?.signOut();
-}
-
-export { authPromise };

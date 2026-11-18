@@ -9,8 +9,6 @@ import "solid-devtools";
 
 import "./event-handlers/global";
 
-// starts the user data load on sign in, before auth can report one
-import "./session-data";
 import "./console-globals";
 import "./controllers/ad-controller";
 import "./test/tts";

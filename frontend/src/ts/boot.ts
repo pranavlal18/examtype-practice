@@ -1,49 +1,29 @@
 import { applyEngineSettings } from "./anim";
-import * as ServerConfiguration from "./ape/server-configuration";
 import { loadFromLocalStorage } from "./config/lifecycle";
-import * as Cookies from "./cookies";
-import * as MerchBanner from "./elements/merch-banner";
-import * as Psa from "./elements/psa";
 import { authPromise, initFirebase } from "./firebase";
 import { initConnection } from "./states/connection";
 import { setAppReady, setVersion } from "./states/core";
-import { showModal } from "./states/modals";
 import { isDevEnvironment } from "./utils/env";
-import { fetchLatestVersion } from "./utils/version";
 
-/** App startup work that doesn't touch the DOM: starts the config load and
- * Firebase, then waits for both before the app is ready. Call once, right after
- * render. */
+/** App startup work that doesn't touch the DOM. Call once, right after render. */
 export async function boot(): Promise<void> {
-  // before awaiting: PSAs show on the first auth state change
+  // ExamType fork: no network calls on boot. Firebase resolves the auth
+  // promise to signed-out (the fork never signs in); the service worker
+  // covers offline use. Any "backend not running"/"firebase failed" banners
+  // players used to see are gone with the analytics PSA plumbing.
   initConnection();
-  Psa.init();
 
   applyEngineSettings();
   const configLoaded = loadFromLocalStorage();
-  void fetchLatestVersion().then((data) => {
-    if (data === null) return;
-    setVersion(data);
-  });
+  // keep setVersion inert but defined; the version button shows the fork's own version
+  setVersion("examtype");
 
-  const accepted = Cookies.getAcceptedCookies();
-  if (accepted === null) {
-    showModal("Cookies");
-  }
-  void initFirebase().then(() => {
-    if (accepted !== null) {
-      Cookies.activateWhatsAccepted();
-    }
-  });
+  void initFirebase();
 
   await configLoaded;
   await authPromise;
 
-  MerchBanner.showIfNotClosedBefore();
-
   setAppReady(true);
-
-  void ServerConfiguration.sync();
 
   registerServiceWorker();
 }

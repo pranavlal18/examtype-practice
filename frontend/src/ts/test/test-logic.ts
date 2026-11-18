@@ -1,4 +1,4 @@
-import { getLocalPB, getUserData } from "../queries/user";
+
 import {
   getRememberLazyMode,
   setRememberLazyMode,
@@ -6,7 +6,6 @@ import {
   setPrefersArabicLazyMode,
 } from "../states/lazy-mode";
 import { isOnline, showOfflineBanner } from "../states/connection";
-import Ape from "../ape";
 import { batch } from "solid-js";
 import * as TestUI from "./test-ui";
 import * as Strings from "../utils/strings";
@@ -990,12 +989,7 @@ export async function finish(difficultyFailed = false): Promise<void> {
     showNoticeNotification("Test invalid - raw");
     setIsTestInvalid(true);
     dontSave = true;
-  } else if (
-    (!getUserData()?.lbOptOut &&
-      (completedEvent.acc < 75 || completedEvent.acc > 100)) ||
-    (getUserData()?.lbOptOut === true &&
-      (completedEvent.acc < 50 || completedEvent.acc > 100))
-  ) {
+  } else if (completedEvent.acc < 75 || completedEvent.acc > 100) {
     showNoticeNotification("Test invalid - accuracy");
     setIsTestInvalid(true);
     dontSave = true;
@@ -1203,121 +1197,16 @@ async function showResult(
   resetWordsRender();
 }
 
+/**
+ * ExamType fork: results are stored only in the local solid-db collection
+ * (collections/results.ts), never on a backend. The upstream save-to-server
+ * path is removed entirely (no API to talk to, no account to save for).
+ */
 async function saveResult(
-  completedEvent: CompletedEvent,
-  isRetrying: boolean,
-): Promise<null | Awaited<ReturnType<typeof Ape.results.add>>> {
-  if (!Config.resultSaving) {
-    showErrorNotification("Result not saved: disabled by user", {
-      durationMs: 3000,
-      customTitle: "Notice",
-      important: true,
-    });
-    return null;
-  }
-
-  const result = structuredClone(completedEvent);
-
-  if (result.testDuration > 122) {
-    result.chartData = "toolong";
-    result.keySpacing = "toolong";
-    result.keyDuration = "toolong";
-  }
-  //@ts-expect-error just in case this is repeated and already has a hash
-  delete result.hash;
-  result.hash = objectHash(result);
-
-  setAccountButtonSpinner(true);
-
-  const response = await Ape.results.add({ body: { result } });
-
-  setAccountButtonSpinner(false);
-
-  if (response.status !== 200) {
-    //only allow retry if status is not in this list
-    if (![460, 461, 463, 464, 465, 466].includes(response.status)) {
-      setResultState("canRetrySaving", true);
-      if (!isRetrying) {
-        retrySavingEvent = result;
-      }
-    }
-    console.log("Error saving result", result);
-    if (response.body.message === "Old key data format") {
-      response.body.message =
-        "Old key data format. Please refresh the page to download the new update. If the problem persists, please contact support.";
-    }
-    if (
-      /"result\..+" is (not allowed|required)/gi.test(response.body.message)
-    ) {
-      response.body.message =
-        "Looks like your result data is using an incorrect schema. Please refresh the page to download the new update. If the problem persists, please contact support.";
-    }
-    showErrorNotification("Failed to save result", { response });
-    return response;
-  }
-
-  const data = response.body.data;
-  setResultState("resultId", data.insertedId);
-
-  const localDataToSave: SaveLocalResultData = {};
-
-  if (data.xp !== undefined) {
-    localDataToSave.xp = data.xp;
-    if (isTestFinished()) {
-      localDataToSave.xpBreakdown = data.xpBreakdown;
-    }
-  }
-
-  if (data.streak !== undefined) {
-    localDataToSave.streak = data.streak;
-  }
-
-  if (data.insertedId !== undefined) {
-    //TODO - this type cast was not needed before because we were using JSON cloning
-    // but now with the stronger types it shows that we are forcing completed event
-    // into a NormalizedLocalResult - might not cuase issues but worth investigating
-    const userResult = structuredClone(
-      result,
-    ) as unknown as NormalizedLocalResult<Mode>;
-    userResult._id = data.insertedId;
-    if (data.isPb !== undefined && data.isPb) {
-      userResult.isPb = true;
-    }
-    localDataToSave.result = userResult;
-  }
-
-  if (data.isPb !== undefined && data.isPb) {
-    //new pb
-    const localPb = getLocalPB(
-      result.mode,
-      result.mode2,
-      result.punctuation,
-      result.numbers,
-      result.language,
-      result.difficulty,
-      result.lazyMode,
-      getFunbox(result.funbox),
-    );
-
-    if (localPb !== undefined) {
-      showConfetti();
-    }
-    setCrownType("normal");
-
-    localDataToSave.isPb = true;
-  } else {
-    showErrorCrownIfNeeded();
-  }
-
-  setResultState({
-    dailyLeaderboardRank: data.dailyLeaderboardRank,
-    canRetrySaving: false,
-  });
-  if (isRetrying) {
-    showSuccessNotification("Result saved", { important: true });
-  }
-  saveLocalResult(localDataToSave);
-  return response;
+  _completedEvent: CompletedEvent,
+  _isRetrying: boolean,
+): Promise<null> {
+  return null;
 }
 
 export function fail(reason: string): void {

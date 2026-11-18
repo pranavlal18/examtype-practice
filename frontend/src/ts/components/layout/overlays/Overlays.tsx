@@ -1,12 +1,8 @@
 import { JSXElement, Show } from "solid-js";
-import { envConfig } from "virtual:env-config";
 
 import { showCommandline } from "../../../states/commandline";
 import { getIsScreenshotting } from "../../../states/core";
-import { showModal } from "../../../states/modals";
 import { cn } from "../../../utils/cn";
-import { isDevEnvironment } from "../../../utils/env";
-import { Button } from "../../common/Button";
 import { Fa } from "../../common/Fa";
 import { ScrollToTop } from "../footer/ScrollToTop";
 import { Banners } from "./Banners";
@@ -42,38 +38,6 @@ export function Overlays(): JSXElement {
       <LoaderBar />
       <FpsCounter />
       <SkillIssueFix />
-      <Show when={isDevEnvironment()}>
-        <DevButtons />
-      </Show>
     </>
-  );
-}
-
-function DevButtons(): JSXElement {
-  return (
-    <div class="fixed top-30 left-0 z-10000 flex w-max flex-col gap-2 text-xs">
-      <Button
-        href={`${envConfig.backendUrl}/configure/`}
-        balloon={{
-          text: "Configure server",
-          position: "right",
-        }}
-        fa={{
-          icon: "fa-server",
-        }}
-        class="rounded-tl-none rounded-bl-none p-2"
-      />
-      <Button
-        balloon={{
-          text: "Dev options",
-          position: "right",
-        }}
-        onClick={() => showModal("DevOptions")}
-        fa={{
-          icon: "fa-flask",
-        }}
-        class="rounded-tl-none rounded-bl-none p-2"
-      />
-    </div>
   );
 }

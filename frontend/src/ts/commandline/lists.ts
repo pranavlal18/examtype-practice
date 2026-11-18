@@ -1,21 +1,17 @@
 import MinBurstCommands from "./lists/min-burst";
 import BailOutCommands from "./lists/bail-out";
-import QuoteFavoriteCommands from "./lists/quote-favorites";
 import NavigationCommands from "./lists/navigation";
 import ResultScreenCommands from "./lists/result-screen";
 import CustomBackgroundCommands from "./lists/custom-background";
 import FontFamilyCommands from "./lists/font-family";
 import CustomBackgroundFilterCommands from "./lists/background-filter";
 import AddOrRemoveThemeToFavorite from "./lists/add-or-remove-theme-to-favorites";
-import TagsCommands from "./lists/tags";
-import CustomThemesListCommands from "./lists/custom-themes-list";
-import PresetsCommands from "./lists/presets";
 import FunboxCommands from "./lists/funbox";
 import ThemesCommands from "./lists/themes";
 import LoadChallengeCommands from "./lists/load-challenge";
 
 import { Config } from "../config/store";
-import { setConfig } from "../config/setters";
+
 import { randomizeTheme } from "../controllers/theme-controller";
 import { showModal } from "../states/modals";
 import {
@@ -26,8 +22,6 @@ import {
 import { Command, CommandlineListKey, CommandsSubgroup } from "./types";
 import { buildCommandForConfigKey } from "./util";
 import { CommandlineConfigKey } from "../config/metadata";
-import { isAuthAvailable, signOut } from "../firebase";
-import { isAuthenticated } from "../states/core";
 import { ConfigKey } from "@monkeytype/schemas/configs";
 import {
   hideFpsCounter,
@@ -63,17 +57,6 @@ export const commands: CommandsSubgroup = {
         showModal("CustomText");
       },
     },
-    {
-      id: "viewQuoteSearchPopup",
-      display: "Search for quotes",
-      fa: { icon: "fa-search" },
-      exec: (): void => {
-        setConfig("mode", "quote");
-        showModal("QuoteSearch");
-      },
-      shouldFocusTestUI: false,
-    },
-    ...QuoteFavoriteCommands,
     ...BailOutCommands,
     {
       id: "shareTestSettings",
@@ -83,10 +66,6 @@ export const commands: CommandsSubgroup = {
         showModal("ShareTestSettings");
       },
     },
-
-    //account
-    ...TagsCommands,
-    ...PresetsCommands,
 
     //behavior
     ...buildCommands(
@@ -174,8 +153,6 @@ export const commands: CommandsSubgroup = {
     ...buildCommands(
       ...ThemesCommands,
       "customTheme",
-
-      ...CustomThemesListCommands,
       "flipTestColors",
       "colorfulMode",
       ...AddOrRemoveThemeToFavorite,
@@ -326,17 +303,6 @@ export const commands: CommandsSubgroup = {
         window.open("https://discord.gg/monkeytype");
       },
     },
-    {
-      id: "signOut",
-      display: "Sign out",
-      fa: { icon: "fa-sign-out-alt" },
-      exec: (): void => {
-        void signOut();
-      },
-      available: () => {
-        return isAuthAvailable() && isAuthenticated();
-      },
-    },
   ],
 };
 
@@ -345,7 +311,6 @@ const lists: Record<CommandlineListKey, CommandsSubgroup | undefined> = {
   loadChallenge: LoadChallengeCommands[0]?.subgroup,
   minBurst: MinBurstCommands[0]?.subgroup,
   funbox: FunboxCommands[0]?.subgroup,
-  tags: TagsCommands[0]?.subgroup,
   ads: adsCommands[0]?.subgroup,
 };
 

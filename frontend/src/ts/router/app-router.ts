@@ -1,13 +1,9 @@
-// The app's router instance: real auth and query client, the router type
-// registration, and app-only side effects (title, og:url, focus, ads).
-// Importing it creates the router - tests use createAppRouter instead
+// The app's router instance: a no-op auth source (ExamType fork has no
+// accounts), the router type registration, and app-only side effects
+// (title, og:url, focus).
 
 import * as AdController from "../controllers/ad-controller";
-import { signOut } from "../auth";
-import { getUserDataLoadState, reloadUserData } from "../session-data";
-import { isAuthAvailable } from "../firebase";
 import { queryClient } from "../queries";
-import { getAuthState } from "../states/core";
 import { getRoutePage } from "../states/router";
 import { setFocusMode } from "../states/test";
 import type { PageName } from "./routes";
@@ -16,13 +12,25 @@ import { capitalizeFirstLetterOfEachWord } from "../utils/strings";
 import { createRouterAuth } from "./create-router-auth";
 import { createAppRouter } from "./create-router";
 import { setRouter } from "./instance";
+import type { AuthState } from "../states/core";
+
+type UserDataLoadState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "loaded" }
+  | { status: "failed"; error: unknown };
+
+const loggedOut: AuthState = "signedOut";
+const noLoad: UserDataLoadState = { status: "idle" };
 
 const auth = createRouterAuth({
-  isAvailable: isAuthAvailable,
-  authState: getAuthState,
-  userDataLoadState: getUserDataLoadState,
-  reloadUserData,
-  signOut,
+  isAvailable: () => false,
+  authState: () => loggedOut,
+  userDataLoadState: () => noLoad,
+  reloadUserData: () => Promise.resolve(),
+  signOut: () => {
+    // nothing to sign out of in this fork
+  },
 });
 
 export const router = createAppRouter({ queryClient, auth });
@@ -60,7 +68,7 @@ function updatePageTitle(page: PageName): void {
   if (page === "test") {
     updateTitle();
   } else {
-    updateTitle(`${capitalizeFirstLetterOfEachWord(page)} | Monkeytype`);
+    updateTitle(`${capitalizeFirstLetterOfEachWord(page)} | ExamType`);
   }
 }
 
