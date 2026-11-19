@@ -55,6 +55,12 @@ export function ExamTest(props: {
   const totalSeconds = untrack(() => props.session.durationMinutes * 60);
   const onFinish = untrack(() => props.onFinish);
   const isTrainer = untrack(() => props.session.kind === "trainer");
+  const isDevanagari = untrack(() =>
+    /[\u0900-\u097F]/.test(props.session.passageText),
+  );
+  const passageFont = isDevanagari
+    ? '"Noto Sans Devanagari","Noto Serif Devanagari","Nirmala UI","Mangal",sans-serif'
+    : '"Times New Roman",Times,serif';
   const startedAt = Date.now();
   const [remaining, setRemaining] = createSignal(totalSeconds);
   const [typedChars, setTypedChars] = createSignal(0);
@@ -262,7 +268,11 @@ export function ExamTest(props: {
             </span>
           </div>
           <div class="max-h-[62vh] min-h-[16rem] overflow-y-auto px-6 py-5 lg:min-h-[26rem]">
-            <p class="font-[Times_New_Roman,Times,serif] text-[15px] leading-7 whitespace-pre-wrap text-text">
+            <p
+              lang={isDevanagari ? "hi" : "en"}
+              class="text-[15px] leading-7 whitespace-pre-wrap text-text"
+              style={{ "font-family": passageFont }}
+            >
               {props.session.passageText}
             </p>
           </div>
@@ -278,7 +288,9 @@ export function ExamTest(props: {
           </div>
           <textarea
             ref={(el) => (textareaRef = el)}
-            class="min-h-[16rem] w-full flex-1 resize-none bg-bg p-5 font-[Times_New_Roman,Times,serif] text-[15px] leading-7 text-text outline-none placeholder:text-sub lg:min-h-[18rem]"
+            lang={isDevanagari ? "hi" : "en"}
+            class="min-h-[16rem] w-full flex-1 resize-none bg-bg p-5 text-[15px] leading-7 text-text outline-none placeholder:text-sub lg:min-h-[18rem]"
+            style={{ "font-family": passageFont }}
             placeholder="Start typing here. In the real exam, every keystroke is counted and nothing is corrected for you…"
             onInput={handleInput}
             onKeyDown={handleKeyDown}

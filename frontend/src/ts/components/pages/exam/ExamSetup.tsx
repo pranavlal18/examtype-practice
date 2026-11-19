@@ -1,5 +1,12 @@
 /* oxlint-disable react/no-unknown-property -- Solid passes lowercase attributes through verbatim */
-import { createResource, createSignal, For, JSXElement, Show } from "solid-js";
+import {
+  createMemo,
+  createResource,
+  createSignal,
+  For,
+  JSXElement,
+  Show,
+} from "solid-js";
 
 import type { ExamSession } from "../../../exam/types";
 
@@ -7,7 +14,10 @@ import {
   getExamAmbientNoise,
   setExamAmbientNoise,
 } from "../../../exam/ambient-audio";
-import { getExamPassages } from "../../../exam/exam-passages";
+import {
+  getExamPassages,
+  type ExamPassageLanguage,
+} from "../../../exam/exam-passages";
 import { cn } from "../../../utils/cn";
 import { Button } from "../../common/Button";
 import { Fa } from "../../common/Fa";
@@ -28,14 +38,19 @@ export function ExamSetup(props: {
   const [duration, setDuration] = createSignal<5 | 10 | 15>(15);
   const [backspaceDisabled, setBackspaceDisabled] = createSignal(false);
   const [ambientNoise, setAmbientNoise] = createSignal(getExamAmbientNoise());
+  const [examLanguage, setExamLanguage] =
+    createSignal<ExamPassageLanguage>("en");
+  const filteredPassages = createMemo(() =>
+    passages()?.filter((passage) => passage.language === examLanguage()),
+  );
 
   const selectedPassage = () => {
-    const list = passages();
+    const list = filteredPassages();
     if (list === undefined || list.length === 0) return undefined;
     const first = list[0];
     if (first === undefined) return undefined;
     const id = selectedId() ?? first.id;
-    return list.find((p) => p.id === id);
+    return list.find((p) => p.id === id) ?? first;
   };
 
   const customLength = () => customText().length;
@@ -125,8 +140,33 @@ export function ExamSetup(props: {
 
         {/* passage bank */}
         <Show when={tab() === "bank"}>
+          <div class="mb-3 flex flex-wrap items-center gap-2">
+            <span class="text-xs font-bold tracking-widest text-sub uppercase">
+              passage language
+            </span>
+            <Button
+              variant="button"
+              active={examLanguage() === "en"}
+              fa={{ icon: "fa-language", fixedWidth: true }}
+              text="English"
+              onClick={() => {
+                setExamLanguage("en");
+                setSelectedId(undefined);
+              }}
+            />
+            <Button
+              variant="button"
+              active={examLanguage() === "hi"}
+              fa={{ icon: "fa-language", fixedWidth: true }}
+              text="हिन्दी"
+              onClick={() => {
+                setExamLanguage("hi");
+                setSelectedId(undefined);
+              }}
+            />
+          </div>
           <Show
-            when={passages()}
+            when={filteredPassages()}
             fallback={
               <div class="p-6 text-center text-sub">
                 <Show when={passagesError()} fallback={"loading passages…"}>

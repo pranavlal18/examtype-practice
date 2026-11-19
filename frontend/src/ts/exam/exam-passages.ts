@@ -10,8 +10,12 @@ import { z } from "zod";
 
 import { cachedFetchJson } from "../utils/json-data";
 
+const PassageLanguageSchema = z.enum(["en", "hi"]);
+export type ExamPassageLanguage = z.infer<typeof PassageLanguageSchema>;
+
 const ExamPassageSchema = z.object({
   id: z.string(),
+  language: PassageLanguageSchema,
   title: z.string(),
   topics: z.array(z.string()),
   source: z.string(),
