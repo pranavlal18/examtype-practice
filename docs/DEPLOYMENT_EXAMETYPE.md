@@ -9,6 +9,9 @@
 
 ## Vercel
 
+- Node.js: use the version in `package.json` `engines` — `>=24 <25`; Vercel project settings should not override this
+- Package manager: use `pnpm` as pinned in `package.json` `packageManager`
+
 - Import GitHub repository `pranavlal18/examtype-practice`
 - Framework Preset: **Other / Vite**
 - Install Command: `pnpm install`

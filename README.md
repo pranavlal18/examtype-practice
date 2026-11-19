@@ -13,7 +13,7 @@
 - **Real Exam Mode (`/exam`)** — split-screen SSC-style practice: passage on top, plain textarea below, 15/10/5-minute countdowns, no live highlighting/auto-scroll, mistakes revealed after submission. Optional backspace-disable drill.
 - **Exam-style scoring** — key depressions, KDPH reference, net WPM, word-level full/half mistakes, and category-wise reference PASS/FAIL badges. Cutoff references are informational, not official.
 - **Custom Text** — paste a passage and practice in exam conditions.
-- **Local-first and private** — your practice history is stored in your browser. No accounts, ads, analytics or backend are required.
+- **Local-first and private** — your typing history is stored in your browser. No accounts, ads, analytics or backend are required. A few opt-in funboxes may fetch public text/images from third-party services when you select them.
 
 ## Build and deploy
 

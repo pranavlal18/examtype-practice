@@ -2,7 +2,6 @@ import { createStore } from "solid-js/store";
 
 export type ModalId =
   | "Contact"
-  | "Support"
   | "Commandline"
   | "EventLogViewer"
   | "SimpleModal"

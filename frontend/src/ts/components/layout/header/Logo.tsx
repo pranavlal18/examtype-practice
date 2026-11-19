@@ -38,26 +38,26 @@ export function Logo(): JSXElement {
         <rect x="8" y="30" width="12" height="4" rx="2" fill="#f97316"></rect>
         <rect x="8" y="40" width="16" height="4" rx="2" fill="#f97316"></rect>
       </svg>
-      <div class="hidden h-6 place-content-center text-[2rem] leading-0 sm:grid">
-        <div
-          class={cn(
-            "-mt-[1.65em] hidden pl-[0.5em] text-[0.315em] leading-0 text-sub transition-colors duration-125 group-focus-visible/logo:text-transparent lg:block",
-            {
-              "text-transparent": isFocusMode(),
-            },
-          )}
-          data-ui-element="logoSubtext"
-        >
-          practice
-        </div>
+      <div class="hidden h-6 flex-col justify-center text-[2rem] leading-none sm:flex">
         <h1
-          class={cn("-mt-[0.11em] text-text transition-colors duration-250", {
+          class={cn("text-text transition-colors duration-250", {
             "text-sub": isFocusMode(),
           })}
           data-ui-element="logoText"
         >
           examtype
         </h1>
+        <div
+          class={cn(
+            "pl-[0.08em] text-[0.32em] leading-none text-main transition-colors duration-125",
+            {
+              "text-sub": isFocusMode(),
+            },
+          )}
+          data-ui-element="logoSubtext"
+        >
+          PRACTICE
+        </div>
       </div>
     </Link>
   );
