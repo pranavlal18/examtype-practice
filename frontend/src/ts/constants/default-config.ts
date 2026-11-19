@@ -92,7 +92,7 @@ const obj: Config = {
   customBackgroundSize: "cover",
   customBackgroundFilter: [0, 1, 1, 1],
   customLayoutfluid: ["qwerty", "dvorak", "colemak"],
-  customPolyglot: ["english", "spanish", "french", "german"],
+  customPolyglot: ["english", "hindi"],
   minBurst: "off",
   minBurstCustomSpeed: 100,
   burstHeatmap: false,
