@@ -1,6 +1,6 @@
-# ExamType — Government Exam Typing
+# ExamType Practice — Government Exam Typing
 
-This document covers the exam modules this fork adds. Everything else is upstream Monkeytype (see `../README.md`).
+This document covers the exam modules this fork adds. Everything else is upstream Monkeytype (see `../README.md`). ExamType Practice is independent and is not affiliated with SSC, RRB, Indian Railways, Government of India or Monkeytype.
 
 ## What exists
 

@@ -1,3 +1,5 @@
+> **ExamType Practice fork notice:** this is an upstream-oriented guide retained for reference. Paths and instructions that mention Monkeytype refer to the upstream GPL-3.0 project, not to changing ExamType Practice defaults. Do not submit ExamType Practice branding or assessment claims upstream without explicit coordination.
+
 ### **Table of Contents**
 
 - [Forking Monkeytype](#forking-monkeytype)
