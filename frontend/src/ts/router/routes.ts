@@ -3,6 +3,7 @@
 import {
   createRootRouteWithContext,
   createRoute,
+  redirect,
 } from "@tanstack/solid-router";
 
 import { PageSwitcher } from "../components/core/PageSwitcher";
@@ -68,7 +69,7 @@ const userDataRoute = createRoute({
 
 const test = createRoute({
   getParentRoute: () => userDataRoute,
-  path: "/",
+  path: "/test",
   staticData: { page: "test" },
   component: createRouterPage(TestPage),
 });
@@ -81,9 +82,21 @@ const settings = createRoute({
   validateSearch: SettingsSearchSchema,
 });
 
-const exam = createRoute({
+// legacy alias: the exam page moved to the front door
+const examRedirect = createRoute({
   getParentRoute: () => userDataRoute,
   path: "/exam",
+  beforeLoad: async (): Promise<void> => {
+    // TanStack router redirects are plain objects, thrown on purpose
+    // oxlint-disable-next-line only-throw-error
+    throw redirect({ to: "/" });
+  },
+});
+
+const exam = createRoute({
+  getParentRoute: () => userDataRoute,
+  // the exam page is the fork's front door
+  path: "/",
   staticData: { page: "exam" },
   component: createRouterPage(ExamPage),
 });
@@ -96,5 +109,5 @@ const trainer = createRoute({
 });
 
 export const routeTree = root.addChildren([
-  userDataRoute.addChildren([test, settings, exam, trainer]),
+  userDataRoute.addChildren([test, settings, exam, examRedirect, trainer]),
 ]);

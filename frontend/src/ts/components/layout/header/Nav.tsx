@@ -21,21 +21,6 @@ export function Nav(): JSXElement {
       <Button
         variant="text"
         fa={{
-          icon: "fa-keyboard",
-          fixedWidth: true,
-        }}
-        to="/"
-        class={buttonClass()}
-        dataset={{
-          "data-nav-item": "test",
-        }}
-        onClick={() => {
-          if (getRoutePage() === "test") void restartTest();
-        }}
-      />
-      <Button
-        variant="text"
-        fa={{
           icon: "fa-graduation-cap",
           fixedWidth: true,
         }}
@@ -43,8 +28,24 @@ export function Nav(): JSXElement {
           "data-nav-item": "exam",
         }}
         class={buttonClass()}
-        to="/exam"
+        to="/"
         balloon={{ text: "government exam typing", position: "down" }}
+      />
+      <Button
+        variant="text"
+        fa={{
+          icon: "fa-keyboard",
+          fixedWidth: true,
+        }}
+        to="/test"
+        class={buttonClass()}
+        dataset={{
+          "data-nav-item": "test",
+        }}
+        balloon={{ text: "typing test", position: "down" }}
+        onClick={() => {
+          if (getRoutePage() === "test") void restartTest();
+        }}
       />
       <Button
         variant="text"
