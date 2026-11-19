@@ -13,6 +13,7 @@
     "dep-graph": "madge -c --extensions ts,tsx -i \"dep-graph.png\" ./src/ts",
     "ts-check": "tsc --noEmit",
     "build": "npm run madge && vite build",
+    "postbuild": "node ../scripts/copy-dist.mjs",
     "build-fe": "pnpm build",
     "madge": " madge --circular --extensions ts,tsx ./src",
     "start": "vite preview --port 3000",
