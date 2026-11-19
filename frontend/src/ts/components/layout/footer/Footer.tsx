@@ -4,7 +4,6 @@ import { getIsScreenshotting } from "../../../states/core";
 import { isFocusMode } from "../../../states/test";
 import { cn } from "../../../utils/cn";
 import { isLoadingShown } from "../../core/PageSwitcher";
-import { Keytips } from "./Keytips";
 import { ThemeIndicator } from "./ThemeIndicator";
 
 export function Footer(): JSXElement {
@@ -16,8 +15,6 @@ export function Footer(): JSXElement {
       data-focused={isFocusMode() ? "" : undefined}
       inert={isLoadingShown()}
     >
-      <Keytips />
-
       <div
         class={cn("flex items-center justify-end transition-opacity", {
           "opacity-0": isFocusMode(),

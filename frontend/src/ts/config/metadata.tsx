@@ -1778,23 +1778,6 @@ const configMetadataEntries = {
   },
 
   // hide elements
-  showKeyTips: {
-    key: "showKeyTips",
-    fa: { icon: "fa-question" },
-    displayString: "show key tips",
-    changeRequiresRestart: false,
-    group: "hideElements",
-    description: "Shows the keybind tips at the bottom of the page.",
-    optionsMetadata: {
-      true: { displayString: "show" },
-      false: { displayString: "hide" },
-    },
-    commandline: {
-      subgroup: {
-        options: "fromSchema",
-      },
-    },
-  },
   showOutOfFocusWarning: {
     key: "showOutOfFocusWarning",
     fa: { icon: "fa-exclamation" },

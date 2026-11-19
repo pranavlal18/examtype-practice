@@ -498,7 +498,6 @@ export const ConfigSchema = z
     customThemeColors: CustomThemeColorsSchema,
 
     // hide elements
-    showKeyTips: z.boolean(),
     showOutOfFocusWarning: z.boolean(),
     capsLockWarning: z.boolean(),
     showAverage: ShowAverageSchema,

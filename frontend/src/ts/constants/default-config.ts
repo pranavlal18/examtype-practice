@@ -19,7 +19,6 @@ const obj: Config = {
     "#7e2a33",
   ] as CustomThemeColors,
   favThemes: [],
-  showKeyTips: true,
   smoothCaret: "medium",
   codeUnindentOnBackspace: false,
   quickRestart: "off",

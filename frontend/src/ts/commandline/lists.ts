@@ -174,7 +174,6 @@ export const commands: CommandsSubgroup = {
 
     //showhide elements
     ...buildCommands(
-      "showKeyTips",
       "showOutOfFocusWarning",
       "capsLockWarning",
       "showAverage",

@@ -18,7 +18,6 @@ import { Advertisement } from "../../common/Advertisement";
 import { Anime, AnimeShow } from "../../common/anime";
 import { Button } from "../../common/Button";
 import { Fa } from "../../common/Fa";
-import { CommandlineHotkey } from "../../hotkeys/CommandlineHotkey";
 import { AutoSwitchTheme } from "./custom-setting/AutoSwitchTheme";
 import { CustomBackground } from "./custom-setting/CustomBackground";
 import { CustomBackgroundFilters } from "./custom-setting/CustomBackgroundFilters";
@@ -49,18 +48,6 @@ export function SettingsPage(): JSXElement {
       {/* while filtering, only the matching settings stay visible; everything
             else is hidden with css so nothing unmounts while typing */}
       <QuickNav class={cn(isSettingsSearchActive() && "hidden")} />
-      <Show when={getConfig.showKeyTips}>
-        <div
-          class={cn(
-            "text-center text-sub",
-            isSettingsSearchActive() && "hidden",
-          )}
-        >
-          tip: You can also change all these settings quickly using the command
-          line
-          <br />( <CommandlineHotkey /> )
-        </div>
-      </Show>
       <SettingsSearch />
       {/* while filtering, lay the matching sections out with a uniform gap */}
       <div class={cn(isSettingsSearchActive() && "grid gap-8")}>
@@ -172,7 +159,6 @@ export function SettingsPage(): JSXElement {
         </Section>
         <Advertisement id="ad-settings-3" visible="sellout" />
         <Section title="hide elements">
-          <SearchableAutoSetting key="showKeyTips" />
           <SearchableAutoSetting key="showOutOfFocusWarning" />
           <SearchableAutoSetting key="capsLockWarning" />
           <SearchableAutoSetting key="showAverage" />
