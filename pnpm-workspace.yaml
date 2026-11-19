@@ -17,6 +17,9 @@ allowBuilds:
 
 overrides:
   "postcss": "8.5.8"
+  # force patched versions within the parents' declared ranges (release tooling, not shipped)
+  "handlebars": ">=4.7.10"
+  "shell-quote": ">=1.8.4"
 engineStrict: true
 saveExact: true
 savePrefix: ""

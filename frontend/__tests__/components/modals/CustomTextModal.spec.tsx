@@ -47,6 +47,7 @@ describe("components/modals/CustomTextModal.tsx", () => {
 
   const textareaPlaceholder = "type or paste your custom text";
 
+  // Cold module re-import per test (resetModules above); slow on loaded machines — 20s hook budget.
   beforeEach(async () => {
     localStorage.clear();
     vi.resetModules();
@@ -64,7 +65,7 @@ describe("components/modals/CustomTextModal.tsx", () => {
     CustomText = customText;
     CustomTextModal = modal.CustomTextModal;
     showModal = modals.showModal;
-  });
+  }, 20000);
 
   /**
    * Opens the chained saved texts modal and loads the given text, waiting for
