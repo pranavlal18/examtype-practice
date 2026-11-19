@@ -4,17 +4,6 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-firebase-debug.log*
-
-# Firebase cache
-.firebase/
-
-# Firebase config
-
-# Uncomment this if you'd like others to create their own Firebase project.
-# For a team working on the same Firebase project(s), it is recommended to leave
-# it commented so all members can deploy to the same project(s) in .firebaserc.
-# .firebaserc
 
 # Runtime data
 pids
@@ -80,15 +69,9 @@ node_modules_bak/
 
 .idea
 
-#firebase
-.firebaserc
-.firebaserc_copy
+#secrets
 serviceAccountKey*.json
 !docker/serviceAccountKey-example.json
-# ExamType fork: firebase-config.ts is a committed dummy (empty values, no
-# secrets) so CI/Vercel builds resolve it. Put real keys only in
-# firebase-config-live.ts, which stays ignored.
-frontend/src/ts/constants/firebase-config-live.ts
 
 #generated files
 dist/

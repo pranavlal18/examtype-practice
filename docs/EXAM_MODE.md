@@ -60,5 +60,5 @@ Static-only. `vercel.json` / `netlify.toml` at the repo root publish `frontend/d
 
 Two fork-specific build deviations, both deliberate:
 
-- **`firebase-config.ts` is committed with empty strings.** Upstream gitignores it (real keys); this fork needs only a Vite-resolvable module so `src/ts/firebase.ts` transforms and boots signed-out. Never put real keys in it — use `firebase-config-live.ts` (ignored) if accounts are re-enabled, and revert the `resolve.alias` hunk in `frontend/vite.config.ts`.
+- **Firebase was removed entirely** (dependency, stub module, config files, test mocks). Upstream's account code paths remain but compile against a statically signed-out auth source (`router/app-router.ts`, `states/core.ts`); nothing touches the network for auth. If accounts are ever re-enabled, that is a new integration, not a revert.
 - **`RECAPTCHA_SITE_KEY` is optional in production builds** (warns instead of throwing). Required upstream; useless for a zero-backend bundle. Set it if accounts come back.

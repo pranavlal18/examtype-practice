@@ -54,7 +54,7 @@ export function createAppRouter(
 ) {
   const history = options.history ?? createBrowserHistory();
   // TODO: remove once links started before the discord oauth redirect moved
-  // from /verify to / are gone (with its firebase.json rewrite)
+  // from /verify to / are gone (with its vercel.json rewrite)
   if (history.location.pathname === "/verify") {
     history.replace(history.location.href.replace(/^\/verify/, "/"));
   }

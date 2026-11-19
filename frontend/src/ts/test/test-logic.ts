@@ -80,7 +80,6 @@ import * as TestWords from "./test-words";
 import * as WordsGenerator from "./words-generator";
 import { canStartTest } from "./test-page-state";
 import { configEvent } from "../events/config";
-import * as AnalyticsController from "../controllers/analytics-controller";
 import {
   CompletedEvent,
   CompletedEventCustomText,
@@ -145,12 +144,6 @@ let failReason = "";
 
 export function startTest(now: number): boolean {
   if (!canStartTest()) return false;
-
-  if (isAuthenticated()) {
-    void AnalyticsController.log("testStarted");
-  } else {
-    void AnalyticsController.log("testStartedNoLogin");
-  }
 
   setTestActive(true);
   TestTimer.clear();

@@ -1,5 +1,5 @@
 {
-  "ignorePatterns": ["node_modules", "dist", "coverage", ".firebase", ".turbo"],
+  "ignorePatterns": ["node_modules", "dist", "coverage", ".turbo"],
   "extends": [
     ".oxlintrc.core.json",
     "../packages/oxlint-config/index.jsonc",

@@ -327,14 +327,7 @@ export default defineConfig(({ mode }): UserConfig => {
       host: env["BACKEND_URL"] !== undefined,
     },
     resolve: {
-      alias: [
-        ...workspacePackagesAlias,
-        // ExamType fork: upstream rewrites firebase-config to the gitignored
-        // firebase-config-live (real prod keys). This fork has no backend and
-        // ships a committed empty dummy instead, so the prod build resolves
-        // exactly like dev. Set your own key/config here if you re-enable
-        // accounts.
-      ],
+      alias: [...workspacePackagesAlias],
     },
     clearScreen: false,
     root: "src",

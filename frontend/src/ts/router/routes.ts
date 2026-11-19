@@ -15,7 +15,7 @@ import { TestPage } from "../components/pages/test/TestPage";
 import { SettingsSearchSchema } from "../states/settings-highlight";
 import { type LoadingStep } from "./loading-bar";
 
-// NOTE: whenever adding a route add the pathname to the `firebase.json`
+// NOTE: whenever adding a route add the pathname to the `vercel.json`
 // rewrite rule
 
 /** A page of the site, rendered by its route (see `staticData.page`). */

@@ -193,9 +193,8 @@ const deployBackend = () => {
 };
 
 const deployFrontend = () => {
-  console.log("Deploying frontend...");
-  runProjectRootCommand(
-    "cd frontend && npx firebase deploy -P live --only hosting",
+  console.log(
+    "Deploying frontend... skipped: ExamType Practice deploys via Vercel on push to master (see docs/DEPLOYMENT_EXAMETYPE.md).",
   );
 };
 
@@ -273,38 +272,9 @@ const createGithubRelease = async (version, changelogContent) => {
 
 const main = async () => {
   if (previewFe) {
-    console.log(`Starting frontend preview deployment process...`);
-    installDependencies();
-    runProjectRootCommand(
-      "NODE_ENV=production npx turbo lint test check-assets build --filter @monkeytype/frontend --force",
-    );
-
-    const name = readlineSync.question(
-      "Enter preview channel name (default: preview): ",
-    );
-    let channelName = name.trim();
-
-    if (channelName === "") {
-      channelName = "preview";
-    }
-
-    const expirationTime = readlineSync.question(
-      "Enter expiration time (e.g., 2h, default: 1d): ",
-    );
-    let expires = expirationTime.trim();
-
-    if (expires === "") {
-      expires = "1d";
-    }
-
     console.log(
-      `Deploying frontend preview to channel "${channelName}" with expiration "${expires}"...`,
+      "Frontend previews for ExamType Practice are Vercel preview deployments: open a pull request against master, or use the Vercel dashboard. No Firebase preview channels.",
     );
-    const result = runProjectRootCommand(
-      `cd frontend && npx firebase hosting:channel:deploy ${channelName} -P live --expires ${expires}`,
-    );
-    console.log(result);
-    console.log("Frontend preview deployed successfully.");
     process.exit(0);
   }
 

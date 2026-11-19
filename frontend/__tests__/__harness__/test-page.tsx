@@ -39,11 +39,13 @@
  *   `caret()` / `paceCaret()` (shown, and the pace caret's target letter).
  *   Their states are semantic, not css classes, so specs survive markup
  *   changes.
- * - Mocked: firebase (signed out, so a finished test isn't saved), the theme
- *   controller (indexedDB), the chart and confetti (canvas). Stubbed in jsdom: matchMedia
- *   (nothing matches), scrolling. The engine's debug logs are muted.
+ * - Mocked: the theme controller (indexedDB), the chart and confetti (canvas).
+ *   Stubbed in jsdom: matchMedia (nothing matches), scrolling. The engine's
+ *   debug logs are muted. The fork has no accounts, so a finished test is
+ *   never saved to a backend.
  * - The page mounts in a router with only the test page, so it reads as the
  *   test page (typing starts a test only there) and the result's links work.
+ * - The app boots signed out (no auth source exists), so no auth mock is needed.
  */
 // static json (layouts, languages) read from disk
 import "./mock-static";
@@ -115,12 +117,6 @@ vi.hoisted(() => {
       dispatchEvent: () => false,
     }) as unknown as MediaQueryList;
 });
-vi.mock("../../src/ts/firebase", () => ({
-  app: undefined,
-  Auth: undefined,
-  getAuthenticatedUser: () => null,
-  isAuthAvailable: () => false,
-}));
 // no canvas in jsdom; the result chart renders nothing
 vi.mock("../../src/ts/components/common/ChartJs", () => ({
   ChartJs: () => null,
