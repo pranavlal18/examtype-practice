@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "ExamType Practice",
+  "version": "1.0.0",
+  "identifier": "com.examtype.practice",
+  "build": {
+    "beforeBuildCommand": "pnpm build-fe",
+    "frontendDist": "../frontend/dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "ExamType Practice",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 900,
+        "minHeight": 600,
+        "backgroundColor": "#323437"
+      }
+    ],
+    "security": {}
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "publisher": "ExamType Practice contributors",
+    "shortDescription": "Free, private exam typing practice",
+    "longDescription": "ExamType Practice — exam-pattern typing practice for Indian government exams (SSC CGL/CHSL, RRB NTPC). Local-only; no accounts, no backend, no tracking. GPL-3.0, fork of Monkeytype.",
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.ico"]
+  }
+}

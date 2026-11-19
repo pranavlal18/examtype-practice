@@ -1,0 +1,15 @@
+[package]
+name = "examtype-practice"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.77.2"
+description = "Free, private exam typing practice (SSC CGL/CHSL, RRB NTPC) — desktop wrapper"
+license = "GPL-3.0-only"
+repository = "https://github.com/pranavlal18/examtype-practice"
+authors = ["ExamType Practice contributors"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }

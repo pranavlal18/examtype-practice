@@ -75,6 +75,9 @@ serviceAccountKey*.json
 
 #generated files
 dist/
+# tauri
+src-tauri/target/
+src-tauri/gen/
 # profiling builds, docs/PROFILING.md
 dist-*/
 frontend/public/
