@@ -6,7 +6,8 @@ export function injectPreload(): Plugin {
   const base = UnpluginInjectPreload({
     files: [
       {
-        outputMatch: /css\/.*\.css$/,
+        // standalone.*.css only serves the static legal/404 pages; index.html never links it
+        outputMatch: /css\/(?!standalone\.).*\.css$/,
         attributes: {
           as: "style",
           type: "text/css",
