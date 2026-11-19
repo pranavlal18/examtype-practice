@@ -13,7 +13,7 @@
 - **Real Exam Mode (`/exam`)** — split-screen SSC-style practice: passage on top, plain textarea below, 15/10/5-minute countdowns, no live highlighting/auto-scroll, mistakes revealed after submission. Optional backspace-disable drill.
 - **Exam-style scoring** — key depressions, KDPH reference, net WPM, word-level full/half mistakes, and category-wise reference PASS/FAIL badges. Cutoff references are informational, not official.
 - **Custom Text** — paste a passage and practice in exam conditions.
-- **Local-first and private** — your typing history is stored in your browser. No accounts, ads, analytics or backend are required. A few opt-in funboxes may fetch public text/images from third-party services when you select them.
+- **Local-first and private-by-default** — your typing history is stored in your browser. No accounts, ads or backend are required. Vercel Web Analytics is enabled for anonymous aggregate page-view statistics; a few opt-in funboxes may fetch public text/images from third-party services when you select them.
 
 ## Build and deploy
 
@@ -29,7 +29,7 @@ No backend or environment variables are required. Do not set `BACKEND_URL` or `R
 ## Data, privacy and legal
 
 - Typing history and settings are stored in your browser’s local storage.
-- The fork does not run accounts, ads, analytics, crash reporting or a hosted database.
+- The fork does not run accounts, ads, crash reporting or a hosted database. Vercel Web Analytics is enabled for anonymous aggregate page-view statistics.
 - GPL-3.0 license is retained. Modifications are open source under the same license.
 - Source is intended to be available at <https://github.com/pranavlal18/examtype-practice>. That repository must exist and be public before the deployed footer link works.
 - Fonts and bundled assets are listed in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).

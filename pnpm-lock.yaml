@@ -137,6 +137,9 @@ importers:
       '@ts-rest/core':
         specifier: 3.52.1
         version: 3.52.1(@types/node@24.9.1)(zod@3.23.8)
+      '@vercel/analytics':
+        specifier: 2.0.1
+        version: 2.0.1(react@18.3.1)
       animejs:
         specifier: 4.2.2
         version: 4.2.2
@@ -408,7 +411,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: 4.1.0
-        version: 4.1.0(@opentelemetry/api@1.9.1)(@types/node@24.9.1)(happy-dom@20.8.9)(jsdom@27.4.0(supports-color@10.2.2))(vite@8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.25.0)(jiti@2.7.0)(sass@1.98.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3))
+        version: 4.1.0(@opentelemetry/api@1.9.1)(@types/node@24.9.1)(happy-dom@20.8.9)(jsdom@27.4.0(supports-color@10.2.2))(vite@8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.27.7)(jiti@2.7.0)(sass@1.98.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3))
 
   packages/contracts:
     dependencies:
@@ -4137,6 +4140,35 @@ packages:
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [win32]
+
+  '@vercel/analytics@2.0.1':
+    resolution: {integrity: sha512-MTQG6V9qQrt1tsDeF+2Uoo5aPjqbVPys1xvnIftXSJYG2SrwXRHnqEvVoYID7BTruDz4lCd2Z7rM1BdkUehk2g==}
+    peerDependencies:
+      '@remix-run/react': ^2
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      nuxt: '>= 3'
+      react: ^18 || ^19 || ^19.0.0-rc
+      svelte: '>= 4'
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@remix-run/react':
+        optional: true
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      nuxt:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
 
   '@vitest/coverage-v8@4.1.5':
     resolution: {integrity: sha512-38C0/Ddb7HcRG0Z4/DUem8x57d2p9jYgp18mkaYswEOQBGsI1CG4f/hjm0ZCeaJfWhSZ4k7jgs29V1Zom7Ki9A==}
@@ -13019,6 +13051,10 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
+  '@vercel/analytics@2.0.1(react@18.3.1)':
+    optionalDependencies:
+      react: 18.3.1
+
   '@vitest/coverage-v8@4.1.5(vitest@4.1.0(@opentelemetry/api@1.9.1)(@types/node@24.9.1)(happy-dom@20.8.9)(jsdom@27.4.0(supports-color@10.2.2))(vite@8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.27.7)(jiti@2.7.0)(sass@1.70.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3)))':
     dependencies:
       '@bcoe/v8-coverage': 1.0.2
@@ -13055,14 +13091,6 @@ snapshots:
       '@vitest/utils': 4.1.0
       chai: 6.2.2
       tinyrainbow: 3.1.0
-
-  '@vitest/mocker@4.1.0(vite@8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.25.0)(jiti@2.7.0)(sass@1.98.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3))':
-    dependencies:
-      '@vitest/spy': 4.1.0
-      estree-walker: 3.0.3
-      magic-string: 0.30.21
-    optionalDependencies:
-      vite: 8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.25.0)(jiti@2.7.0)(sass@1.98.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3)
 
   '@vitest/mocker@4.1.0(vite@8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.27.7)(jiti@2.7.0)(sass@1.70.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3))':
     dependencies:
@@ -18680,26 +18708,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite@8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.25.0)(jiti@2.7.0)(sass@1.98.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3):
-    dependencies:
-      lightningcss: 1.32.0
-      picomatch: 4.0.5
-      postcss: 8.5.8
-      rolldown: 1.0.0-rc.12(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)
-      tinyglobby: 0.2.17
-    optionalDependencies:
-      '@types/node': 24.9.1
-      esbuild: 0.25.0
-      fsevents: 2.3.3
-      jiti: 2.7.0
-      sass: 1.98.0
-      terser: 5.49.1
-      tsx: 4.21.0
-      yaml: 2.8.3
-    transitivePeerDependencies:
-      - '@emnapi/core'
-      - '@emnapi/runtime'
-
   vite@8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.27.7)(jiti@2.7.0)(sass@1.70.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3):
     dependencies:
       lightningcss: 1.32.0
@@ -18743,36 +18751,6 @@ snapshots:
   vitefu@1.1.1(vite@8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.27.7)(jiti@2.7.0)(sass@1.70.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3)):
     optionalDependencies:
       vite: 8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.27.7)(jiti@2.7.0)(sass@1.70.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3)
-
-  vitest@4.1.0(@opentelemetry/api@1.9.1)(@types/node@24.9.1)(happy-dom@20.8.9)(jsdom@27.4.0(supports-color@10.2.2))(vite@8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.25.0)(jiti@2.7.0)(sass@1.98.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3)):
-    dependencies:
-      '@vitest/expect': 4.1.0
-      '@vitest/mocker': 4.1.0(vite@8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.25.0)(jiti@2.7.0)(sass@1.98.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3))
-      '@vitest/pretty-format': 4.1.0
-      '@vitest/runner': 4.1.0
-      '@vitest/snapshot': 4.1.0
-      '@vitest/spy': 4.1.0
-      '@vitest/utils': 4.1.0
-      es-module-lexer: 2.0.0
-      expect-type: 1.3.0
-      magic-string: 0.30.21
-      obug: 2.1.1
-      pathe: 2.0.3
-      picomatch: 4.0.4
-      std-env: 4.1.0
-      tinybench: 2.9.0
-      tinyexec: 1.1.2
-      tinyglobby: 0.2.17
-      tinyrainbow: 3.1.0
-      vite: 8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.25.0)(jiti@2.7.0)(sass@1.98.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3)
-      why-is-node-running: 2.3.0
-    optionalDependencies:
-      '@opentelemetry/api': 1.9.1
-      '@types/node': 24.9.1
-      happy-dom: 20.8.9
-      jsdom: 27.4.0(supports-color@10.2.2)
-    transitivePeerDependencies:
-      - msw
 
   vitest@4.1.0(@opentelemetry/api@1.9.1)(@types/node@24.9.1)(happy-dom@20.8.9)(jsdom@27.4.0(supports-color@10.2.2))(vite@8.0.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@24.9.1)(esbuild@0.27.7)(jiti@2.7.0)(sass@1.70.0)(terser@5.49.1)(tsx@4.21.0)(yaml@2.8.3)):
     dependencies:

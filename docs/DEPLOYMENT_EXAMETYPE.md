@@ -18,15 +18,16 @@
 - Build Command: `pnpm build-fe`
 - Output Directory: `frontend/dist`
 - Environment variables: **none**
+- Vercel Web Analytics: enable it in the Vercel dashboard, then redeploy so the injected analytics routes are active
 - SPA rewrite is already in `vercel.json`; `/exam` must load directly
 
 ## Post-deploy checks
 
 - `/` and `/exam` load
 - Footer **Source code** link works
-- `privacy-policy.html`, `security-policy.html`, and `terms-of-service.html` load and contain no Monkeytype, Google, MongoDB, advertisement, analytics or `monkeytype.com` text
+- `privacy-policy.html`, `security-policy.html`, and `terms-of-service.html` load and accurately describe Vercel Web Analytics and no other third-party tracking
 - `manifest.json` name is `ExamType Practice` and icons are the new assets
-- Devtools **Network** shows no requests to `monkeytype.com`, `google.com`, `discord.gg`, `ko-fi.com`, `patreon.com` or `sentry.io`
+- Devtools **Network** shows no requests to `monkeytype.com`, `discord.gg`, `ko-fi.com`, `patreon.com` or `sentry.io`; Vercel Analytics requests are expected
 - Source-code/GPL wording is visible in the footer on every page
 - The site displays independent/non-affiliation wording for SSC/RRB/Indian Railways/Government of India/Monkeytype
 
