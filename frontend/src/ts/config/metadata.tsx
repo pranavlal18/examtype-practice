@@ -7,6 +7,7 @@ import { JSXElement } from "solid-js";
 
 import { getDefaultConfig } from "../constants/default-config";
 import { Fonts } from "../constants/fonts";
+import { LanguageList } from "../constants/languages";
 import { getCustomThemes } from "../queries/custom-themes";
 import { isAuthenticated } from "../states/core";
 import { showNoticeNotification } from "../states/notifications";
@@ -393,7 +394,7 @@ const configMetadataEntries = {
     description: "Change in which language you want to type.",
     commandline: {
       subgroup: {
-        options: "fromSchema",
+        options: [...LanguageList],
       },
     },
   },
