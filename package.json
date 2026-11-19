@@ -15,6 +15,7 @@
     "lint-pkg": "turbo run lint --filter=\"./packages/*\"",
     "lint-fix": "turbo run lint -- --fix",
     "build": "turbo run build",
+    "postbuild": "node scripts/copy-dist.mjs",
     "build-fe": "turbo run build --filter @monkeytype/frontend",
     "build-pkg": "turbo run build --filter=\"./packages/*\"",
     "test": "turbo run test integration-test",

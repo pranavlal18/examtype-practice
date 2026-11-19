@@ -13,10 +13,10 @@
 - Package manager: use `pnpm` as pinned in `package.json` `packageManager`
 
 - Import GitHub repository `pranavlal18/examtype-practice`
-- Framework Preset: **Other / Vite**
+- Framework Preset: **Other / Vite** — if Vercel instead auto-detects "Turborepo", it runs root `pnpm build` and expects repo-root `dist/`; the root `postbuild` script (`scripts/copy-dist.mjs`) mirrors `frontend/dist` → `dist/` so that preset works too. Root `dist/` is gitignored.
 - Install Command: `pnpm install`
 - Build Command: `pnpm build-fe`
-- Output Directory: `frontend/dist`
+- Output Directory: `frontend/dist` (ignored by the Turborepo preset; `dist/` at repo root is used instead — both are fine)
 - Environment variables: **none**
 - Vercel Web Analytics: enable it in the Vercel dashboard, then redeploy so the injected analytics routes are active
 - SPA rewrite is already in `vercel.json`; `/exam` must load directly
