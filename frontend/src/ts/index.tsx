@@ -31,7 +31,11 @@ Object.defineProperty(window, "Math", {
   enumerable: true,
 });
 
-inject();
+// Initialize Vercel Web Analytics
+inject({
+  mode: import.meta.env.MODE === "development" ? "development" : "production",
+  debug: import.meta.env.MODE === "development",
+});
 
 // render before anything that might touch component-rendered DOM (eg. test page).
 // Renders after the static markup in <body> (index.html)
